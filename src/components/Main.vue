@@ -7,9 +7,7 @@
       <div
         v-for="(message, index) in messages"
         :key="index"
-        class="terminal-message">
-        {{ansi(message)}}
-      </div>
+        class="terminal-message">{{ansi(message)}}</div>
     </virtual-list>
   </div>
 </template>
