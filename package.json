@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "ansi_up": "^3.0.0",
+    "lodash": "^4.17.10",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
     "vue-virtual-scroll-list": "^1.2.5",

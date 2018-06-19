@@ -1,40 +1,43 @@
 <template>
   <div class="terminal-container">
-    <virtual-list
-      :size="40"
+    <VirtualList
+      :size="20"
       :remain="20"
+      :bench="20"
+      :start="0"
+      :onscroll="scroll"
+      ref="messages"
       class="terminal-messages">
       <div
         v-for="(message, index) in messages"
         :key="index"
         class="terminal-message">{{ansi(message)}}</div>
-    </virtual-list>
+    </VirtualList>
   </div>
 </template>
 
 <script>
-import virtualList from 'vue-virtual-scroll-list'
+import VirtualList from 'vue-virtual-scroll-list'
+import _ from 'lodash'
 
 export default {
-  name: 'Main',
-  components: { 'virtual-list': virtualList },
+  name: 'Terminal',
+  components: { VirtualList },
 
   data () {
     return {
       connected: false,
-      messages: ['Connecting...']
+      messages: []
     }
   },
 
   created () {
     this.$bus.$on('connected', () => {
-      console.log('connected')
       this.connected = true
       this.messages.push('Connected!')
     })
 
     this.$bus.$on('message', m => {
-      console.log(m)
       const message = JSON.parse(m.data)
       if (message.type === 'message') {
         this.outputMessage(message)
@@ -43,7 +46,7 @@ export default {
 
     this.$bus.$on('error', e => {
       this.connected = false
-      this.messages.push(e)
+      this.messages.push('Unable to connect to server.')
     })
 
     this.$bus.$on('disconnected', () => {
@@ -52,10 +55,20 @@ export default {
     })
   },
 
+  computed: {
+    messagesEl () {
+      return _.get(this, '$refs.messages.$el', {})
+    },
+    scrolled () {
+      const messagesEl = this.messagesEl
+      const {scrollHeight, scrollTop} = messagesEl
+      return scrollHeight > scrollTop
+    }
+  },
+
   methods: {
     ansi (message) {
       const ansied = this.$ansi.ansi_to_html(message)
-      console.log({original: message, ansied})
       return ansied
     },
 
@@ -65,8 +78,16 @@ export default {
         // Line breaks
         .split('\r\n')
       this.messages = this.messages.concat(messages)
-      console.log({msg: this.messages})
+      this.scrollDown()
       return messages
+    },
+
+    scroll () {},
+
+    scrollDown () {
+      this.$nextTick(() => {
+        this.messagesEl.scrollTop = this.messagesEl.scrollHeight
+      })
     }
   }
 }
@@ -86,5 +107,7 @@ export default {
   overflow-y: auto;
   margin-top: 48px;
   text-align: left;
+  height: 60vh;
+  width: 80%;
 }
 </style>
