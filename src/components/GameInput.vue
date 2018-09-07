@@ -45,14 +45,17 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .game-input {
-  align-self: flex-end;
   flex: 1;
-  display: block;
+  display: flex;
   font-family: 'Roboto Mono', monospace;
   font-size: 16px;
   height: 32px;
   padding: 8px;
   background-color: #24282a;
+}
+
+form {
+  width: 100%;
 }
 
 .game-input-field:focus {
@@ -72,6 +75,7 @@ export default {
 
   width: 100%;
   height: 100%;
+  flex-grow: 1;
 
   background-color: #00410056;
 }

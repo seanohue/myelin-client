@@ -35,27 +35,32 @@ export default {
   },
 
   created () {
+    console.log('Terminal Component Created..')
+
     this.$bus.$on('connected', () => {
       this.connected = true
-      this.messages.push('Connected!')
+      this.outputMessage('Connected!')
     })
 
     this.$bus.$on('message', m => {
       const message = JSON.parse(m.data)
       if (message.type === 'message') {
-        this.outputMessage(message)
+        this.outputMessage(message.message)
       }
     })
 
     this.$bus.$on('error', e => {
       this.connected = false
-      this.messages.push('Unable to connect to server.')
+      this.outputMessage('Unable to connect to server.')
     })
 
     this.$bus.$on('disconnected', () => {
       this.connected = false
-      this.messages.push('Disconnected.')
+      this.outputMessage('Disconnected.')
     })
+
+    this.$socket.init()
+    this.outputMessage('Initializing...')
   },
 
   computed: {
@@ -76,7 +81,7 @@ export default {
     },
 
     outputMessage (message) {
-      const messages = message.message
+      const messages = message
         .trim()
         // Line breaks
         .split('\r\n')
@@ -99,18 +104,20 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .terminal-container {
+  display: flex;
   flex: 1;
+  flex-direction: column;
+
   font-family: 'Roboto Mono', monospace;
   font-size: 14px;
+  text-align: left;
+
   white-space: pre-wrap;
   background-color: #24282a;
   color: #e0e0e0;
+
   padding: 8px;
   overflow-y: auto;
   margin-top: 48px;
-  text-align: left;
-  height: 60vh;
-  width: 80%;
-  display: flex;
 }
 </style>
