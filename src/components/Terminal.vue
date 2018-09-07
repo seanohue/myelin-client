@@ -13,16 +13,19 @@
         :key="index"
         class="terminal-message">{{ansi(message)}}</div>
     </VirtualList>
+    <GameInput></GameInput>
   </div>
 </template>
 
 <script>
 import VirtualList from 'vue-virtual-scroll-list'
+import GameInput from '@/components/GameInput'
+
 import _ from 'lodash'
 
 export default {
   name: 'Terminal',
-  components: { VirtualList },
+  components: { VirtualList, GameInput },
 
   data () {
     return {
@@ -95,7 +98,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-
 .terminal-container {
   flex: 1;
   font-family: 'Roboto Mono', monospace;
@@ -109,5 +111,6 @@ export default {
   text-align: left;
   height: 60vh;
   width: 80%;
+  display: flex;
 }
 </style>
