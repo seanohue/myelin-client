@@ -8,15 +8,13 @@ const WebsocketPlugin = {
 
     const socket = {
       init () {
-        console.log('Socket initiated...')
-        Object.assign(
-          Vue.prototype.$socket,
-          new WebSocket(`ws://${hostname}:${port}`)
-        )
-        socket.onopen = () => bus.$emit('connected')
-        socket.onclose = () => bus.$emit('disconnected')
-        socket.onerror = (e) => bus.$emit('error', e)
-        socket.onmessage = (m) => bus.$emit('message', m)
+        const _socket = new WebSocket(`ws://${hostname}:${port}`)
+        _socket.onopen = () => bus.$emit('connected')
+        _socket.onclose = () => bus.$emit('disconnected')
+        _socket.onerror = (e) => bus.$emit('error', e)
+        _socket.onmessage = (m) => bus.$emit('message', m)
+
+        socket.send = _socket.send.bind(_socket)
 
         bus.$on('connected', () => console.log('Connected'))
         bus.$on('message', console.log)

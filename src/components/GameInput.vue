@@ -47,11 +47,13 @@ export default {
 .game-input {
   flex: 1;
   display: flex;
-  font-family: 'Roboto Mono', monospace;
-  font-size: 16px;
   height: 32px;
   padding: 8px;
   background-color: #24282a;
+}
+
+.game-input:focus {
+  border-style: none;
 }
 
 form {
@@ -78,5 +80,11 @@ form {
   flex-grow: 1;
 
   background-color: #00410056;
+  color: rgb(221, 235, 222);
+
+  font-family: 'Roboto Mono', monospace;
+  font-size: 16px;
+  padding: 4px 0 0 4px;
+  margin-right: 4px;
 }
 </style>

@@ -9,9 +9,10 @@
       ref="messages"
       class="terminal-messages">
       <div
+        v-html="ansi(message)"
         v-for="(message, index) in messages"
         :key="index"
-        class="terminal-message">{{ansi(message)}}</div>
+        class="terminal-message"></div>
     </VirtualList>
     <GameInput></GameInput>
   </div>
@@ -61,6 +62,7 @@ export default {
 
     this.$socket.init()
     this.outputMessage('Initializing...')
+    console.log(this.$socket)
   },
 
   computed: {
@@ -69,7 +71,7 @@ export default {
     },
     scrolled () {
       const messagesEl = this.messagesEl
-      const {scrollHeight, scrollTop} = messagesEl
+      const { scrollHeight, scrollTop } = messagesEl
       return scrollHeight > scrollTop
     }
   },
@@ -82,7 +84,6 @@ export default {
 
     outputMessage (message) {
       const messages = message
-        .trim()
         // Line breaks
         .split('\r\n')
       this.messages = this.messages.concat(messages)
@@ -108,7 +109,7 @@ export default {
   flex: 1;
   flex-direction: column;
 
-  font-family: 'Roboto Mono', monospace;
+  font-family: "Roboto Mono", monospace;
   font-size: 14px;
   text-align: left;
 
@@ -119,5 +120,22 @@ export default {
   padding: 8px;
   overflow-y: auto;
   margin-top: 48px;
+}
+
+.terminal-messages::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-style: groove;
+  background-color: #24282a;
+}
+
+.terminal-messages::-webkit-scrollbar {
+  width: 12px;
+  background-color: #24282a;
+}
+
+.terminal-messages::-webkit-scrollbar-thumb {
+  border-style: groove;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: rgb(221, 235, 222);
 }
 </style>
