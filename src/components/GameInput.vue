@@ -5,6 +5,7 @@
         v-model.trim="userInput"
         class="game-input-field"
         @keydown.enter="enter"
+        disabled="disabled"
       />
     </form>
   </div>
@@ -20,6 +21,12 @@ export default {
       userInput: '',
       // Use Vuex for this eventually
       history: []
+    }
+  },
+
+  computed: {
+    disabled () {
+      return this.$socket.readyState !== this.$socket.OPEN
     }
   },
 
