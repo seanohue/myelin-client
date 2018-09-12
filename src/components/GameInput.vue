@@ -5,7 +5,6 @@
         v-model.trim="userInput"
         class="game-input-field"
         @keydown.enter="enter"
-        disabled="disabled"
       />
     </form>
   </div>
@@ -26,6 +25,7 @@ export default {
 
   computed: {
     disabled () {
+      console.log('check for disable', this.$socket.readyState)
       return this.$socket.readyState !== this.$socket.OPEN
     }
   },
@@ -37,6 +37,7 @@ export default {
 
     enter (event) {
       event.preventDefault()
+      if (this.disabled) return
 
       const msg = this.userInput
       console.log({msg}, this.userInput)

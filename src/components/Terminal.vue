@@ -8,11 +8,11 @@
       :onscroll="scroll"
       ref="messages"
       class="terminal-messages">
-      <div
+      <span
         v-html="ansi(message)"
         v-for="(message, index) in messages"
         :key="index"
-        class="terminal-message"></div>
+        class="terminal-message"></span>
     </VirtualList>
     <GameInput></GameInput>
   </div>
@@ -83,12 +83,9 @@ export default {
     },
 
     outputMessage (message) {
-      const messages = message
-        // Line breaks
-        .split('\r\n')
-      this.messages = this.messages.concat(messages)
+      this.messages = this.messages.concat(message)
       this.scrollDown()
-      return messages
+      return this.messages
     },
 
     scroll () {},
