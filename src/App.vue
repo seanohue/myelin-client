@@ -5,11 +5,13 @@
 </template>
 
 <style lang="less">
+body {
+    background-color: gray;
+}
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #aad5ff;
 }
 #nav {
   padding: 30px;
