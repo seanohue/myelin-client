@@ -45,6 +45,7 @@ export default {
 
     this.$bus.$on('message', m => {
       const message = JSON.parse(m.data)
+      console.log(message)
       if (message.type === 'message') {
         this.outputMessage(message.message)
       }
@@ -123,6 +124,7 @@ export default {
 
 .terminal-messages::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-style: groove;
   background-color: #24282a;
 }
@@ -135,6 +137,7 @@ export default {
 .terminal-messages::-webkit-scrollbar-thumb {
   border-style: groove;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: rgb(221, 235, 222);
 }
 </style>
