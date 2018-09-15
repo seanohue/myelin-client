@@ -2,6 +2,7 @@
   <div class="game-input">
     <form @submit.prevent="enter">
       <input
+        v-bind:type="type"
         v-model.trim="userInput"
         class="game-input-field"
         @keydown.enter="enter"
@@ -11,12 +12,23 @@
 </template>
 
 <script>
+import _ from 'lodash'
 
 export default {
   name: 'GameInput',
 
+  created () {
+    this.$bus.$on('uiChange', changes => {
+      console.log({changes})
+      if (_.has(changes, 'mask')) {
+        this.masked = changes.mask
+      }
+    })
+  },
+
   data () {
     return {
+      masked: false,
       userInput: '',
       // Use Vuex for this eventually
       history: []
@@ -27,12 +39,22 @@ export default {
     disabled () {
       console.log('check for disable', this.$socket.readyState)
       return this.$socket.readyState !== this.$socket.OPEN
+    },
+    type () {
+      console.log('Checking type:')
+      if (this.masked) {
+        console.log('pw')
+        return 'password'
+      }
+      console.log('text')
+      return 'text'
     }
   },
 
   methods: {
     clear () {
       this.userInput = ''
+      this.masked = false
     },
 
     enter (event) {

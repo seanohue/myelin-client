@@ -45,10 +45,8 @@ export default {
 
     this.$bus.$on('message', m => {
       const message = JSON.parse(m.data)
-      console.log(message)
-      if (message.type === 'message') {
-        this.outputMessage(message.message)
-      }
+      console.log({message})
+      this.handleMessage(message)
     })
 
     this.$bus.$on('error', e => {
@@ -63,7 +61,6 @@ export default {
 
     this.$socket.init()
     this.outputMessage('Initializing...')
-    console.log(this.$socket)
   },
 
   computed: {
@@ -81,6 +78,19 @@ export default {
     ansi (message) {
       const ansied = this.$ansi.ansi_to_html(message)
       return ansied
+    },
+
+    handleMessage (message) {
+      switch (message.type) {
+        case 'message':
+          return this.outputMessage(message.message)
+        case 'ui':
+          return this.$bus.$emit('uiChange', message.data)
+        case 'data':
+          return this.$bus.$emit('dataChange', message.data)
+        default:
+          return console.log('Unsupported message type: ', message.type)
+      }
     },
 
     outputMessage (message) {
