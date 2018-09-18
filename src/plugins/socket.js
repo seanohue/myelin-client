@@ -18,8 +18,12 @@ const WebsocketPlugin = {
 
         bus.$on('connected', () => console.log('Connected'))
         bus.$on('message', console.log)
+
+        socket.isReady = () => _socket.readyState === _socket.OPEN
+        return socket
       }
     }
+
     Vue.prototype.$socket = socket
   }
 }

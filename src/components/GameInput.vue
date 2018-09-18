@@ -37,16 +37,12 @@ export default {
 
   computed: {
     disabled () {
-      console.log('check for disable', this.$socket.readyState)
-      return this.$socket.readyState !== this.$socket.OPEN
+      return this.$socket.isReady()
     },
     type () {
-      console.log('Checking type:')
       if (this.masked) {
-        console.log('pw')
         return 'password'
       }
-      console.log('text')
       return 'text'
     }
   },
@@ -62,17 +58,15 @@ export default {
       if (this.disabled) return
 
       const msg = this.userInput
-      console.log({msg}, this.userInput)
-      this.history.push(msg)
       this.$socket.send(msg)
 
+      if (!this.masked) this.history.push(msg)
       this.clear()
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .game-input {
   flex: 1;
