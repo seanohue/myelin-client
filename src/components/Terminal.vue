@@ -40,7 +40,7 @@ export default {
 
     this.$bus.$on('connected', () => {
       this.connected = true
-      this.outputMessage('Connected!')
+      this.outputMessage('Connected!\n')
     })
 
     this.$bus.$on('message', m => {
@@ -51,16 +51,16 @@ export default {
 
     this.$bus.$on('error', e => {
       this.connected = false
-      this.outputMessage('Unable to connect to server.')
+      this.outputMessage('Unable to connect to server.\n')
     })
 
     this.$bus.$on('disconnected', () => {
       this.connected = false
-      this.outputMessage('Disconnected.')
+      this.outputMessage('Disconnected.\n')
     })
 
     this.$socket.init()
-    this.outputMessage('Initializing...')
+    this.outputMessage('Initializing...\n')
   },
 
   beforeDestroy () {
