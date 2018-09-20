@@ -21,9 +21,8 @@ export default {
 
   created () {
     this.$bus.$on('uiChange', (changes) => {
-      console.log({changes})
       if (_.has(changes, 'mask')) {
-        this.masked = !this.masked
+        this.masked = _.get(changes, 'mask')
       }
     })
   },
