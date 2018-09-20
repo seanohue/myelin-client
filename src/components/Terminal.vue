@@ -45,7 +45,6 @@ export default {
 
     this.$bus.$on('message', m => {
       const message = JSON.parse(m.data)
-      console.log({message})
       this.handleMessage(message)
     })
 

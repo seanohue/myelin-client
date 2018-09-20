@@ -20,10 +20,10 @@ export default {
   name: 'GameInput',
 
   created () {
-    this.$bus.$on('uiChange', changes => {
+    this.$bus.$on('uiChange', (changes) => {
       console.log({changes})
       if (_.has(changes, 'mask')) {
-        this.masked = changes.mask
+        this.masked = !this.masked
       }
     })
   },
@@ -33,13 +33,14 @@ export default {
       masked: false,
       userInput: '',
       // Use Vuex for this eventually
+      historyIndex: 0,
       history: []
     }
   },
 
   computed: {
     disabled () {
-      return this.$socket.isReady()
+      return !this.$socket.isReady()
     },
     type () {
       if (this.masked) {
@@ -57,13 +58,25 @@ export default {
 
     enter (event) {
       event.preventDefault()
+      console.log(this.disabled)
       if (this.disabled) return
 
       const msg = this.userInput
       this.$socket.send(msg)
 
-      if (!this.masked) this.history.push(msg)
+      if (!this.masked) {
+        this.history.push(msg)
+        if (this.history.length > 80) {
+          this.history.shift()
+        }
+      }
       this.clear()
+    },
+
+    traverseHistory (direction) {
+      const inc = direction === 'up' ? -1 : 1
+      this.historyIndex += inc
+      this.userInput = this.history[this.historyIndex]
     }
   }
 }
