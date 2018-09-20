@@ -63,6 +63,11 @@ export default {
     this.outputMessage('Initializing...')
   },
 
+  beforeDestroy () {
+    const NORMAL = 1000
+    this.$socket.close(NORMAL, 'Player navigated from page.')
+  },
+
   computed: {
     messagesEl () {
       return _.get(this, '$refs.messages.$el', {})

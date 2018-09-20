@@ -6,6 +6,8 @@
         v-model.trim="userInput"
         class="game-input-field"
         @keydown.enter="enter"
+        @keydown.up="traverseHistory('up')"
+        @keydown.down="traverseHistory('down')"
       />
     </form>
   </div>

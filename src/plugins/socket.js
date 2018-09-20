@@ -15,11 +15,9 @@ const WebsocketPlugin = {
         _socket.onmessage = (m) => bus.$emit('message', m)
 
         socket.send = _socket.send.bind(_socket)
-
-        bus.$on('connected', () => console.log('Connected'))
-        bus.$on('message', console.log)
-
+        socket.close = _socket.close.bind(_socket)
         socket.isReady = () => _socket.readyState === _socket.OPEN
+
         return socket
       }
     }
