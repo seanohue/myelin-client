@@ -1,7 +1,7 @@
 <template>
   <div class="terminal-container">
     <VirtualList
-      :size="20"
+      :size="30"
       :remain="20"
       :bench="20"
       :start="0"
@@ -36,8 +36,6 @@ export default {
   },
 
   created () {
-    console.log('Terminal Component Created..')
-
     this.$bus.$on('connected', () => {
       this.connected = true
       this.outputMessage('Connected!\n')
