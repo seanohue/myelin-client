@@ -132,6 +132,10 @@ export default {
   padding: 8px;
   overflow-y: auto;
   margin-top: 48px;
+
+  -moz-box-shadow:    inset 0 0 3px #e0e0e0;
+  -webkit-box-shadow: inset 0 0 3px #e0e0e0;
+  box-shadow:         inset 0 0 3px #e0e0e0;
 }
 
 .terminal-messages::-webkit-scrollbar-track {

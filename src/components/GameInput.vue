@@ -2,9 +2,10 @@
   <div class="game-input">
     <form @submit.prevent="enter">
       <input
+        autocomplete="nope"
+        class="game-input-field"
         v-bind:type="type"
         v-model.trim="userInput"
-        class="game-input-field"
         @keydown.enter="enter"
         @keydown.up="traverseHistory('up')"
         @keydown.down="traverseHistory('down')"
@@ -86,7 +87,7 @@ export default {
   flex: 1;
   display: flex;
   height: 32px;
-  padding: 8px;
+  padding: 8px 8px 8px 0px;
   background-color: #24282a;
 }
 
@@ -98,9 +99,10 @@ form {
   width: 100%;
 }
 
-.game-input-field:focus {
+input.game-input-field:focus {
   box-shadow: 0 0 5px rgb(81, 238, 131);
   border-color: rgb(81, 238, 120);
+  outline: 0 none;
 }
 
 .game-input-field {
