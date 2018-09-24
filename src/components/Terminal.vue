@@ -138,9 +138,13 @@ export default {
   overflow-y: auto;
   margin-top: 48px;
 
-  -moz-box-shadow:    inset 0 0 3px @term-foreground;
-  -webkit-box-shadow: inset 0 0 3px @term-foreground;
-  box-shadow:         inset 0 0 3px @term-foreground;
+  .subtle-inner-shadow(@term-foreground)
+}
+
+.subtle-inner-shadow(@color) {
+  -moz-box-shadow:    inset 0 0 3px @color;
+  -webkit-box-shadow: inset 0 0 3px @color;
+  box-shadow:         inset 0 0 3px @color;
 }
 
 .terminal-messages::-webkit-scrollbar-track {
