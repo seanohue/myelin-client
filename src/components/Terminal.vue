@@ -112,8 +112,13 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
+// TODO: Extract to global LESS sheet as needed.
+@term-foreground: #e0e0e0;
+@term-background: #24282a;
+@scrollbar-shadow: rgba(0, 0, 0, 0.3);
+@scrollbar-thumb: rgb(221, 235, 222);
+
 .terminal-container {
   border-style: groove;
 
@@ -127,33 +132,33 @@ export default {
 
   white-space: pre-wrap;
   background-color: #24282a;
-  color: #e0e0e0;
+  color: @term-foreground;
 
   padding: 8px;
   overflow-y: auto;
   margin-top: 48px;
 
-  -moz-box-shadow:    inset 0 0 3px #e0e0e0;
-  -webkit-box-shadow: inset 0 0 3px #e0e0e0;
-  box-shadow:         inset 0 0 3px #e0e0e0;
+  -moz-box-shadow:    inset 0 0 3px @term-foreground;
+  -webkit-box-shadow: inset 0 0 3px @term-foreground;
+  box-shadow:         inset 0 0 3px @term-foreground;
 }
 
 .terminal-messages::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: inset 0 0 6px @scrollbar-shadow;
+  box-shadow: inset 0 0 6px @scrollbar-shadow;
   border-style: groove;
-  background-color: #24282a;
+  background-color: @term-background;
 }
 
 .terminal-messages::-webkit-scrollbar {
   width: 12px;
-  background-color: #24282a;
+  background-color: @term-background;
 }
 
 .terminal-messages::-webkit-scrollbar-thumb {
   border-style: groove;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: rgb(221, 235, 222);
+  -webkit-box-shadow: inset 0 0 6px @scrollbar-shadow;
+  box-shadow: inset 0 0 6px @scrollbar-shadow;
+  background-color: @scrollbar-thumb;
 }
 </style>
