@@ -1,0 +1,21 @@
+@term-foreground: #e0e0e0;
+@term-background: #24282a;
+@scrollbar-shadow: rgba(0, 0, 0, 0.3);
+@scrollbar-thumb: rgb(221, 235, 222);
+
+.subtle-inner-shadow(@color) {
+  -moz-box-shadow:    inset 0 0 3px @color;
+  -webkit-box-shadow: inset 0 0 3px @color;
+  box-shadow:         inset 0 0 3px @color;
+}
+
+.font-face(@font-family, @filepath, @font-weight, @font-style){
+    @font-face {
+        font-family: @font-family;
+        src: url('assets/@{filepath}.TTF')  format('truetype');
+        font-weight: @font-weight;
+        font-style: @font-style;
+    }
+}
+
+.font-face('BigBlue Terminal', 'BigBlue_TerminalPlus', normal, normal);

@@ -114,10 +114,7 @@ export default {
 
 <style scoped lang="less">
 // TODO: Extract to global LESS sheet as needed.
-@term-foreground: #e0e0e0;
-@term-background: #24282a;
-@scrollbar-shadow: rgba(0, 0, 0, 0.3);
-@scrollbar-thumb: rgb(221, 235, 222);
+@import '../app.less';
 
 .terminal-container {
   border-style: groove;
@@ -126,12 +123,12 @@ export default {
   flex: 1;
   flex-direction: column;
 
-  font-family: "Roboto Mono", monospace;
+  font-family: "BigBlue Terminal", "Roboto Mono", monospace;
   font-size: 14px;
   text-align: left;
 
   white-space: pre-wrap;
-  background-color: #24282a;
+  background-color: @term-background;
   color: @term-foreground;
 
   padding: 8px;
@@ -139,12 +136,6 @@ export default {
   margin-top: 48px;
 
   .subtle-inner-shadow(@term-foreground)
-}
-
-.subtle-inner-shadow(@color) {
-  -moz-box-shadow:    inset 0 0 3px @color;
-  -webkit-box-shadow: inset 0 0 3px @color;
-  box-shadow:         inset 0 0 3px @color;
 }
 
 .terminal-messages::-webkit-scrollbar-track {
