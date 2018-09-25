@@ -9,6 +9,14 @@ describe('Terminal.vue', () => {
     $on () {}
   }
 
+  const $socket = {
+    init () {}
+  }
+
+  const $ansi = {
+    ansi_to_html () {}
+  }
+
   let sandbox = {}
 
   beforeEach(() => {
@@ -17,7 +25,7 @@ describe('Terminal.vue', () => {
   })
 
   it('sets up listeners on bus', () => {
-    shallowMount(Terminal, {mocks: { $bus }})
+    shallowMount(Terminal, {mocks: { $bus, $socket, $ansi }})
     const events = [
       'connected',
       'disconnected',
