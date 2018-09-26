@@ -11,7 +11,7 @@
     drag-handle=".titlebar"
     :handles="customhandles"
   >
-    <div class="titlebar">Panel</div>
+    <div class="titlebar">{{title}}</div>
     <slot></slot>
   </vue-draggable-resizable>
 </template>
@@ -25,7 +25,6 @@ export default {
   props: ['title', 'size', 'position', 'customhandles'],
 
   data () {
-    console.log(this.size)
     return {
       width: _.get(this, 'size.w', 200),
       height: _.get(this, 'size.h', 200),
@@ -53,5 +52,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import '../app.less';
 
+.titlebar {
+  font-family: "BigBlue Terminal", "Roboto Mono", monospace;
+  border-style: groove;
+  background: linear-gradient(to right, @green-middle, @green-background);
+  height: 16px;
+  color: @term-foreground;
+  padding: 2px;
+}
 </style>

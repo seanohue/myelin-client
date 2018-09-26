@@ -83,6 +83,8 @@ export default {
 </script>
 
 <style scoped lang="less">
+@import '../app.less';
+
 .game-input {
   flex: 1;
   display: flex;

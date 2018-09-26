@@ -1,5 +1,6 @@
 <template>
   <MyelinPanel
+    title="VESSEL ACCESS TERMINAL v0.2.3"
     :size="termsize"
     :customhandles="['ml', 'mr']"
   >
@@ -44,7 +45,7 @@ export default {
   created () {
     this.$bus.$on('connected', () => {
       this.connected = true
-      this.outputMessage('Connected!\n')
+      this.outputMessage('Linked!\n')
     })
 
     this.$bus.$on('message', m => {
@@ -54,16 +55,16 @@ export default {
 
     this.$bus.$on('error', e => {
       this.connected = false
-      this.outputMessage('Unable to connect to server.\n')
+      this.outputMessage('Unable to link to vessel.\n')
     })
 
     this.$bus.$on('disconnected', () => {
       this.connected = false
-      this.outputMessage('Disconnected.\n')
+      this.outputMessage('Unlinked.\n')
     })
 
     this.$socket.init()
-    this.outputMessage('Initializing...\n')
+    this.outputMessage('Linking to vessel...\n')
   },
 
   beforeDestroy () {
@@ -137,7 +138,7 @@ export default {
   flex: 1;
   flex-direction: column;
 
-  font-family: "BigBlue Terminal", "Roboto Mono", monospace;
+  font-family: "Roboto Mono", monospace;
   font-size: 14px;
   text-align: left;
 
@@ -152,8 +153,7 @@ export default {
 }
 
 .terminal-messages::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px @scrollbar-shadow;
-  box-shadow: inset 0 0 6px @scrollbar-shadow;
+  .subtle-inner-shadow(@scrollbar-shadow, 6px);
   border-style: groove;
   background-color: @term-background;
 }
@@ -165,8 +165,7 @@ export default {
 
 .terminal-messages::-webkit-scrollbar-thumb {
   border-style: groove;
-  -webkit-box-shadow: inset 0 0 6px @scrollbar-shadow;
-  box-shadow: inset 0 0 6px @scrollbar-shadow;
+  .subtle-inner-shadow(@scrollbar-shadow, 6px);
   background-color: @scrollbar-thumb;
 }
 </style>
