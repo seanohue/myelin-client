@@ -1,32 +1,38 @@
 <template>
-  <div class="terminal-container">
-    <VirtualList
-      :size="30"
-      :remain="20"
-      :bench="20"
-      :start="0"
-      :onscroll="scroll"
-      ref="messages"
-      class="terminal-messages">
-      <span
-        v-html="ansi(message)"
-        v-for="(message, index) in messages"
-        :key="index"
-        class="terminal-message"></span>
-    </VirtualList>
-    <GameInput></GameInput>
-  </div>
+  <MyelinPanel
+    :size="termsize"
+    :customhandles="['ml', 'mr']"
+  >
+    <div class="terminal-container">
+      <VirtualList
+        :size="30"
+        :remain="20"
+        :bench="20"
+        :start="0"
+        :onscroll="scroll"
+        ref="messages"
+        class="terminal-messages">
+        <span
+          v-html="ansi(message)"
+          v-for="(message, index) in messages"
+          :key="index"
+          class="terminal-message"></span>
+      </VirtualList>
+      <GameInput></GameInput>
+    </div>
+  </MyelinPanel>
 </template>
 
 <script>
+import _ from 'lodash'
+
 import VirtualList from 'vue-virtual-scroll-list'
 import GameInput from '@/components/GameInput'
-
-import _ from 'lodash'
+import MyelinPanel from '@/components/MyelinPanel'
 
 export default {
   name: 'Terminal',
-  components: { VirtualList, GameInput },
+  components: { VirtualList, GameInput, MyelinPanel },
 
   data () {
     return {
@@ -73,6 +79,14 @@ export default {
       const messagesEl = this.messagesEl
       const { scrollHeight, scrollTop } = messagesEl
       return scrollHeight > scrollTop
+    },
+    termsize () {
+      return {
+        w: window.innerWidth - 24,
+        h: window.innerHeight - 8,
+        minh: 200,
+        minw: 300
+      }
     }
   },
 
@@ -133,7 +147,6 @@ export default {
 
   padding: 8px;
   overflow-y: auto;
-  margin-top: 48px;
 
   .subtle-inner-shadow(@term-foreground)
 }

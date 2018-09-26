@@ -4,7 +4,7 @@
       <input
         autocomplete="nope"
         class="game-input-field"
-        v-bind:type="type"
+        :type="type"
         v-model.trim="userInput"
         @keydown.enter="enter"
         @keydown.up="traverseHistory('up')"
