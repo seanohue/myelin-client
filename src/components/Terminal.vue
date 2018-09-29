@@ -89,7 +89,7 @@ export default {
         w: window.innerWidth - 24,
         h: window.innerHeight - 8,
         minh: 200,
-        minw: 300
+        minw: 350
       }
     }
   },

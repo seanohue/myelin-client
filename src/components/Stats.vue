@@ -7,9 +7,8 @@
     :customhandles="['ml', 'mr']"
   >
     <div class="stats-container">
-      <div v-for="(stat, name) in stats" :key="name">
-        {{name}}: {{stat.current}}/{{stat.max}}
-      </div>
+      <StatBar v-for="(stat, i) in sortedStats" :key="i" :stat="stat" :name="stat.name">
+      </StatBar>
     </div>
   </MyelinPanel>
 </template>
@@ -17,12 +16,13 @@
 <script>
 import _ from 'lodash'
 import MyelinPanel from '@/components/MyelinPanel'
+import StatBar from '@/components/StatBar'
 
 export default {
-  components: {MyelinPanel},
+  components: {MyelinPanel, StatBar},
   data () {
     return {
-      size: {w: 300, h: 600},
+      size: {w: 325, h: 600, minh: 400, minw: 200},
       position: {x: 600, y: 100},
       stats: {}
     }
@@ -31,6 +31,16 @@ export default {
   computed: {
     hasStats () {
       return !_.isEmpty(this.stats)
+    },
+
+    sortedStats () {
+      const named = _.map(this.stats, (stat, name) => {
+        stat.name = name
+        return stat
+      })
+      const sorted = _.sortBy(named, 'type')
+      console.log({name, sorted})
+      return sorted
     }
   },
 
