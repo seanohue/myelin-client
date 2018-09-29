@@ -1,19 +1,21 @@
 <template>
-  <vue-draggable-resizable
-    :w="width"
-    :h="height"
-    :x="x"
-    :y="y"
-    :minh="minh"
-    :minw="minw"
-    v-on:dragging="onDrag"
-    v-on:resizing="onResize"
-    drag-handle=".titlebar"
-    :handles="customhandles"
-  >
-    <div class="titlebar">{{title}}</div>
-    <slot></slot>
-  </vue-draggable-resizable>
+  <transition name="fade">
+    <vue-draggable-resizable
+      :w="width"
+      :h="height"
+      :x="x"
+      :y="y"
+      :minh="minh"
+      :minw="minw"
+      v-on:dragging="onDrag"
+      v-on:resizing="onResize"
+      drag-handle=".titlebar"
+      :handles="customhandles"
+    >
+      <div class="titlebar">{{title}}</div>
+      <slot></slot>
+    </vue-draggable-resizable>
+  </transition>
 </template>
 
 <script>
@@ -62,5 +64,12 @@ export default {
   color: @term-foreground;
   padding: 2px;
   text-overflow: ellipsis;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>

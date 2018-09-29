@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   props: ['name', 'stat'],
   data () {
@@ -24,7 +26,7 @@ export default {
     },
 
     difference () {
-      if (!this.stat.base) return ''
+      if (_.isNil(this.stat.base)) return ''
       const diff = this.stat.current - this.stat.base
       if (diff === 0) return ''
       if (diff > 0) return `(+${diff})`
