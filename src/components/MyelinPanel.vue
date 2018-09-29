@@ -61,5 +61,6 @@ export default {
   height: 16px;
   color: @term-foreground;
   padding: 2px;
+  text-overflow: ellipsis;
 }
 </style>

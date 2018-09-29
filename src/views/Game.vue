@@ -1,15 +1,19 @@
 <template>
   <div class="main">
     <Terminal/>
+    <Stats />
   </div>
 </template>
 
 <script>
 import Terminal from '@/components/Terminal'
+import Stats from '@/components/Stats'
+
 export default {
   name: 'home',
   components: {
-    Terminal
+    Terminal,
+    Stats
   }
 }
 </script>

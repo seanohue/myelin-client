@@ -102,9 +102,9 @@ export default {
         case 'message':
           return this.outputMessage(message.message)
         case 'ui':
-          return this.$bus.$emit('uiChange', message.data)
+          return this.$bus.$emit('ui:change', message.data)
         case 'data':
-          return this.$bus.$emit('dataChange', message.data)
+          return this.$bus.$emit('data:change', message.data)
         default:
           return console.log('Unsupported message type: ', message.type)
       }
@@ -132,24 +132,7 @@ export default {
 @import '../app.less';
 
 .terminal-container {
-  border-style: groove;
-
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-
-  font-family: "Roboto Mono", monospace;
-  font-size: 14px;
-  text-align: left;
-
-  white-space: pre-wrap;
-  background-color: @term-background;
-  color: @term-foreground;
-
-  padding: 8px;
-  overflow-y: auto;
-
-  .subtle-inner-shadow(@term-foreground)
+  .panel-content-container()
 }
 
 .terminal-messages::-webkit-scrollbar-track {

@@ -21,7 +21,7 @@ export default {
   name: 'GameInput',
 
   created () {
-    this.$bus.$on('uiChange', (changes) => {
+    this.$bus.$on('ui:change', (changes) => {
       if (_.has(changes, 'mask')) {
         this.masked = _.get(changes, 'mask')
       }

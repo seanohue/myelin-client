@@ -7,6 +7,27 @@
 @green-middle: rgb(36, 111, 55);
 @green-background: #00410056;
 
+.panel-content-container() {
+white-space: pre-wrap;
+background-color: @term-background;
+color: @term-foreground;
+
+padding: 8px;
+overflow-y: auto;
+
+border-style: groove;
+
+display: flex;
+flex: 1;
+flex-direction: column;
+
+font-family: "Roboto Mono", monospace;
+font-size: 14px;
+text-align: left;
+
+.subtle-inner-shadow(@term-foreground)
+}
+
 .subtle-inner-shadow(@color, @size: 3px) {
   -moz-box-shadow:    inset 0 0 @size @color;
   -webkit-box-shadow: inset 0 0 @size @color;
