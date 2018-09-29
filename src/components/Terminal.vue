@@ -27,6 +27,8 @@
 <script>
 import _ from 'lodash'
 
+import pkg from '@/../package.json'
+
 import VirtualList from 'vue-virtual-scroll-list'
 import GameInput from '@/components/GameInput'
 import MyelinPanel from '@/components/MyelinPanel'
@@ -38,7 +40,8 @@ export default {
   data () {
     return {
       connected: false,
-      messages: []
+      messages: [],
+      title: `VESSEL ACCESS TERMINAL v${pkg.version || 'X.X.X'}`
     }
   },
 
