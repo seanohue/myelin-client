@@ -1,7 +1,7 @@
 <template>
   <MyelinPanel
     v-if="hasStats"
-    title="VESSEL STATÜS MONITOR"
+    title="STATÜS MONITOR"
     :position="position"
     :size="size"
     :customhandles="['ml', 'mr']"

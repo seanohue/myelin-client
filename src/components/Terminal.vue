@@ -128,7 +128,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-// TODO: Extract to global LESS sheet as needed.
 @import '../app.less';
 
 .terminal-container {
