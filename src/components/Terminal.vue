@@ -1,6 +1,6 @@
 <template>
   <MyelinPanel
-    title="VESSEL ACCESS TERMINAL v0.2.3"
+    :title="title"
     :size="termsize"
     :customhandles="['ml', 'mr']"
   >

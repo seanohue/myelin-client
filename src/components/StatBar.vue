@@ -38,7 +38,9 @@ export default {
 
 <style lang="less" scoped>
 @import '../app.less';
-
+.statbar-container {
+  padding: 1px;
+}
 .stat-label {
   font-family: "BigBlue Terminal", "Roboto Mono", monospace;
 }

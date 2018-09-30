@@ -4,7 +4,7 @@
     title="STATÜS MONITOR"
     :position="position"
     :size="size"
-    :customhandles="['ml', 'mr']"
+    :customhandles="['tl', 'tr']"
   >
     <div class="stats-container">
       <StatBar v-for="(stat, i) in sortedStats"
@@ -25,7 +25,7 @@ export default {
   components: {MyelinPanel, StatBar},
   data () {
     return {
-      size: {w: 325, h: 600, minh: 400, minw: 200},
+      size: {w: 325, h: 600, minh: 200, minw: 200},
       position: {x: 600, y: 100},
       stats: {}
     }
