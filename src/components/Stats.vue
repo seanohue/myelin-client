@@ -7,7 +7,10 @@
     :customhandles="['ml', 'mr']"
   >
     <div class="stats-container">
-      <StatBar v-for="(stat, i) in sortedStats" :key="i" :stat="stat" :name="stat.name">
+      <StatBar v-for="(stat, i) in sortedStats"
+        :key="i"
+        :stat="stat"
+        :name="stat.name">
       </StatBar>
     </div>
   </MyelinPanel>
@@ -39,7 +42,7 @@ export default {
         return stat
       })
       const sorted = _.sortBy(named, 'type')
-      console.log({name, sorted})
+      sorted[sorted.length - 1].isLast = true
       return sorted
     }
   },

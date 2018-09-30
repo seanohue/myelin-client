@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="statbar-container" :class="{divider: !stat.isLast}">
     <div v-if="isPool">
-      {{name}}: {{stat.current}}/{{stat.max}}
+      <span class="stat-label">{{name}}:</span> <span class="stat-value">{{stat.current}}/{{stat.max}}</span>
     </div>
     <div v-if="isStat">
-      {{name}}: {{stat.current}} {{difference}}
+      <span class="stat-label">{{name}}:</span> <span class="stat-value">{{stat.current}} {{difference}}</span>
     </div>
   </div>
 </template>
@@ -28,7 +28,7 @@ export default {
     difference () {
       if (_.isNil(this.stat.base)) return ''
       const diff = this.stat.current - this.stat.base
-      if (diff === 0) return ''
+      if (diff === 0) return '(+0)'
       if (diff > 0) return `(+${diff})`
       return `(${diff})`
     }
@@ -39,4 +39,13 @@ export default {
 <style lang="less" scoped>
 @import '../app.less';
 
+.stat-label {
+  font-family: "BigBlue Terminal", "Roboto Mono", monospace;
+}
+.stat-value {
+  float: right;
+}
+.divider {
+  border-bottom: groove 1px;
+}
 </style>
