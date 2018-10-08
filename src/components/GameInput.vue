@@ -1,7 +1,7 @@
 <template>
   <div class="game-input">
     <form @submit.prevent="enter">
-      <input
+      <input v-focus
         autocomplete="nope"
         class="game-input-field"
         :type="type"
@@ -19,6 +19,14 @@ import _ from 'lodash'
 
 export default {
   name: 'GameInput',
+
+  directives: {
+    focus: {
+      inserted (el) {
+        el.focus()
+      }
+    }
+  },
 
   created () {
     this.$bus.$on('ui:change', (changes) => {
