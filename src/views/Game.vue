@@ -1,8 +1,8 @@
 <template>
-  <div class="main">
+  <vue-hero-pattern class="main" pattern="temple">
     <Terminal/>
     <Stats />
-  </div>
+  </vue-hero-pattern>
 </template>
 
 <script>
@@ -20,6 +20,9 @@ export default {
 
 <style>
 .main {
+  width: 100vw;
+  height: 100vh;
+  background-color: gray;
   display: flex;
 }
 
