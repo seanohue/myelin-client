@@ -13,10 +13,21 @@
 import _ from 'lodash'
 
 export default {
-  props: ['name', 'stat'],
+  props: {
+    name: {
+      type: String,
+      required: true
+    },
+    stat: {
+      type: Object,
+      required: true
+    }
+  },
+
   data () {
     return {}
   },
+
   computed: {
     isPool () {
       return this.stat.type === 'pool'
