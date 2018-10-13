@@ -107,6 +107,13 @@ export default {
         case 'ui':
           return this.$bus.$emit('ui:change', message.data)
         case 'data':
+          switch (message.group) {
+            case 'attributes':
+              return this.$bus.$emit('stats:change', message.data)
+            case 'effects':
+              return this.$bus.$emit('effects:change', message.data)
+          }
+          console.log('unspecified data:', message)
           return this.$bus.$emit('data:change', message.data)
         default:
           return console.log('Unsupported message type: ', message.type)

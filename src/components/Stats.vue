@@ -48,9 +48,8 @@ export default {
   },
 
   created () {
-    this.$bus.$on('data:change', (data) => {
-      if (!data) return
-      if ('might' in data) {
+    this.$bus.$on('stats:change', (data) => {
+      if (data) {
         this.stats = data
       }
     })
