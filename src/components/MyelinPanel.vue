@@ -24,8 +24,21 @@ import VueDraggableResizable from 'vue-draggable-resizable'
 
 export default {
   components: { VueDraggableResizable },
-  props: ['title', 'size', 'position', 'customhandles'],
-
+  props: {
+    title: {
+      type: String,
+      default: 'ANZEIGE O.S.'
+    },
+    size: {
+      type: Object
+    },
+    position: {
+      type: Object
+    },
+    customHandles: {
+      type: Array
+    }
+  },
   data () {
     return {
       width: _.get(this, 'size.w', 200),
