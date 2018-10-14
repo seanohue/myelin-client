@@ -66,7 +66,6 @@ export default {
 
     enter (event) {
       event.preventDefault()
-      console.log(this.disabled)
       if (this.disabled) return
 
       const msg = this.userInput

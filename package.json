@@ -1,6 +1,6 @@
 {
   "name": "myelin-client",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "ansi_up": "^3.0.0",
+    "humanize-duration-es6": "^1.0.1",
     "lodash": "^4.17.10",
     "vue": "^2.5.16",
     "vue-draggable-resizable": "^1.7.2",

@@ -1,25 +1,42 @@
 <template>
-  <div class="statbar-container">
-    <div>
+  <div class="effect-container" :class="{divider: !isLast}">
+    <div v-if="effect.remaining">
+      <span class="effect-label">{{effect.name}}</span>
+      <span class="effect-timing" v-if="effect.remaining">{{remainingTime}}</span>
+    </div>
+    <div v-else>
+      <span class="effect-label">{{effect.name}}</span>
+      <span class="effect-timing">Permanent</span>
     </div>
   </div>
 </template>
 
 <script>
 import _ from 'lodash'
+import Humanizer from 'humanize-duration-es6'
+
+const h = new Humanizer({
+  y: () => 'yr',
+  mo: () => 'mo',
+  w: () => 'wk',
+  d: () => 'd',
+  h: () => 'hr',
+  m: () => 'min',
+  s: () => 's',
+  ms: () => 'ms',
+  decimal: () => '.'
+})
+const humanize = _.partialRight(h.humanize.bind(h), {largest: 2, round: true})
 
 export default {
-  props: ['effect'],
+  props: ['effect', 'isLast'],
   data () {
     return {}
   },
   computed: {
-    difference () {
-      if (_.isNil(this.stat.base)) return ''
-      const diff = this.stat.current - this.stat.base
-      if (diff === 0) return '(+0)'
-      if (diff > 0) return `(+${diff})`
-      return `(${diff})`
+    remainingTime () {
+      const remaining = _.get(this, 'effect.remaining', 0)
+      return humanize(remaining)
     }
   }
 }
@@ -27,15 +44,19 @@ export default {
 
 <style lang="less" scoped>
 @import '../app.less';
-.statbar-container {
+
+.effect-container {
   padding: 1px;
 }
-.stat-label {
+.effect-label {
   font-family: "BigBlue Terminal", "Roboto Mono", monospace;
 }
-.stat-value {
+
+.effect-timing {
+
   float: right;
 }
+
 .divider {
   border-bottom: groove 1px;
 }

@@ -1,19 +1,49 @@
 <template>
   <vue-hero-pattern class="main" pattern="temple">
     <Terminal/>
-    <Stats />
+    <StatsPanel />
+    <EffectsPanel />
   </vue-hero-pattern>
 </template>
 
 <script>
 import Terminal from '@/components/Terminal'
-import Stats from '@/components/Stats'
+import StatsPanel from '@/components/Stats'
+import EffectsPanel from '@/components/EffectsPanel'
 
 export default {
   name: 'home',
   components: {
     Terminal,
-    Stats
+    StatsPanel,
+    EffectsPanel
+  },
+  created () {
+    this.$bus.$on('message', m => {
+      const message = JSON.parse(m.data)
+      this.dispatch(message)
+    })
+  },
+
+  methods: {
+    dispatch (message) {
+      switch (message.type) {
+        case 'message':
+          return this.$bus.$emit('ui:output', message.message)
+        case 'ui':
+          return this.$bus.$emit('ui:change', message.data)
+        case 'data':
+          switch (message.group) {
+            case 'attributes':
+              return this.$bus.$emit('stats:change', message.data)
+            case 'effects':
+              return this.$bus.$emit('effects:change', message.data)
+          }
+          return this.$bus.$emit('data:change', message.data)
+        default:
+          return console.log('Unsupported message type: ', message.type)
+      }
+    }
   }
 }
 </script>

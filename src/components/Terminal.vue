@@ -51,11 +51,6 @@ export default {
       this.outputMessage('Linked!\n')
     })
 
-    this.$bus.$on('message', m => {
-      const message = JSON.parse(m.data)
-      this.handleMessage(message)
-    })
-
     this.$bus.$on('error', e => {
       this.connected = false
       this.outputMessage('Unable to link to vessel.\n')
@@ -65,6 +60,8 @@ export default {
       this.connected = false
       this.outputMessage('Unlinked.\n')
     })
+
+    this.$bus.$on('ui:output', this.outputMessage)
 
     this.$socket.init()
     this.outputMessage('Linking to vessel...\n')
@@ -98,26 +95,6 @@ export default {
     ansi (message) {
       const ansied = this.$ansi.ansi_to_html(message)
       return ansied
-    },
-
-    handleMessage (message) {
-      switch (message.type) {
-        case 'message':
-          return this.outputMessage(message.message)
-        case 'ui':
-          return this.$bus.$emit('ui:change', message.data)
-        case 'data':
-          switch (message.group) {
-            case 'attributes':
-              return this.$bus.$emit('stats:change', message.data)
-            case 'effects':
-              return this.$bus.$emit('effects:change', message.data)
-          }
-          console.log('unspecified data:', message)
-          return this.$bus.$emit('data:change', message.data)
-        default:
-          return console.log('Unsupported message type: ', message.type)
-      }
     },
 
     outputMessage (message) {

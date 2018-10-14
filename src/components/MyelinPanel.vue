@@ -35,7 +35,7 @@ export default {
     position: {
       type: Object
     },
-    customHandles: {
+    customhandles: {
       type: Array
     }
   },

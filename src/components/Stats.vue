@@ -28,7 +28,7 @@ export default {
     return {
       title: 'STATÜS MONITOR',
       size: {w: 325, h: 600, minh: 200, minw: 200},
-      position: {x: 600, y: 100},
+      position: {x: 620, y: 100},
       stats: {}
     }
   },
