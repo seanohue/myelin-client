@@ -8,7 +8,7 @@ import Socket from './plugins/socket'
 import EventBus, {bus} from './plugins/bus'
 import Ansi from './plugins/ansi'
 
-const hostname = 'localhost'
+const hostname = 'myelin.space'
 const port = 4001
 
 Vue.config.productionTip = false
