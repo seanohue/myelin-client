@@ -29,7 +29,16 @@ const h = new Humanizer({
 const humanize = _.partialRight(h.humanize.bind(h), {largest: 2, round: true})
 
 export default {
-  props: ['effect', 'isLast'],
+  props: {
+    effect: {
+      type: Object,
+      required: true
+    },
+    isLast: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {}
   },
