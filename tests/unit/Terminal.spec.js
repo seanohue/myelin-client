@@ -32,7 +32,7 @@ describe('Terminal.vue', () => {
       'connected',
       'disconnected',
       'error',
-      'message'
+      'ui:output'
     ]
     events.forEach(event => expect($bus.$on.calledWith(event)).to.be.true)
   })
