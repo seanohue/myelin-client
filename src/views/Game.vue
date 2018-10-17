@@ -8,7 +8,7 @@
 
 <script>
 import Terminal from '@/components/Terminal'
-import StatsPanel from '@/components/Stats'
+import StatsPanel from '@/components/StatsPanel'
 import EffectsPanel from '@/components/EffectsPanel'
 
 export default {
