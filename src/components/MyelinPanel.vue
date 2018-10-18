@@ -13,10 +13,12 @@
       :handles="customhandles"
     >
       <div class="titlebar">
-        <span>{{title}}</span>
-        <div class="titlebar-button">-</div>
+        <span class="title">{{title}}</span>
+        <div class="titlebar-button" @click="toggleMinimize()">{{minIcon}}</div>
       </div>
-      <slot></slot>
+      <div v-show="!minimized">
+        <slot></slot>
+      </div>
     </vue-draggable-resizable>
   </transition>
 </template>
@@ -44,6 +46,7 @@ export default {
   },
   data () {
     return {
+      minimized: false,
       width: _.get(this, 'size.w', 200),
       height: _.get(this, 'size.h', 200),
       minh: _.get(this, 'size.minh', 50),
@@ -51,6 +54,12 @@ export default {
       x: _.get(this, 'position.x', 0),
       y: _.get(this, 'position.y', 0),
       handles: _.get(this, 'customhandles', ['tl', 'tm', 'tr', 'mr', 'br', 'bm', 'bl', 'ml'])
+    }
+  },
+
+  computed: {
+    minIcon () {
+      return this.minimized ? '^' : '-'
     }
   },
 
@@ -64,6 +73,9 @@ export default {
     onDrag (x, y) {
       this.x = x
       this.y = y
+    },
+    toggleMinimize () {
+      this.minimized = !this.minimized
     }
   }
 }
@@ -89,10 +101,14 @@ export default {
   background-color: gray;
 }
 
+.title {
+  align-self: flex-start;
+}
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity 1s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.fade-enter, .fade-leave-to {
   opacity: 0;
 }
 </style>
