@@ -12,7 +12,10 @@
       drag-handle=".titlebar"
       :handles="customhandles"
     >
-      <div class="titlebar">{{title}}</div>
+      <div class="titlebar">
+        <span>{{title}}</span>
+        <div class="titlebar-button">-</div>
+      </div>
       <slot></slot>
     </vue-draggable-resizable>
   </transition>
@@ -77,6 +80,13 @@ export default {
   color: @term-foreground;
   padding: 2px;
   text-overflow: ellipsis;
+  display: flex;
+  justify-content: space-between;
+}
+
+.titlebar-button {
+  border-style: groove;
+  background-color: gray;
 }
 
 .fade-enter-active, .fade-leave-active {
