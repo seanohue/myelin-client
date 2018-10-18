@@ -3,6 +3,7 @@
     :title="title"
     :size="termsize"
     :customhandles="['ml', 'mr']"
+    :minimizable="false"
   >
     <div class="terminal-container">
       <VirtualList

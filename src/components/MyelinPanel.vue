@@ -14,7 +14,7 @@
     >
       <div class="titlebar">
         <span class="title">{{title}}</span>
-        <div class="titlebar-button" @click="toggleMinimize()">{{minIcon}}</div>
+        <div v-if="minimizable" class="titlebar-button" @click="toggleMinimize()">{{minIcon}}</div>
       </div>
       <div v-show="!minimized">
         <slot></slot>
@@ -42,6 +42,10 @@ export default {
     },
     customhandles: {
       type: Array
+    },
+    minimizable: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -99,6 +103,7 @@ export default {
 .titlebar-button {
   border-style: groove;
   background-color: gray;
+  text-align: center;
 }
 
 .title {
