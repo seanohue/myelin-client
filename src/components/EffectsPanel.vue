@@ -26,7 +26,7 @@ export default {
   components: {MyelinPanel, EffectBlock},
   data () {
     return {
-      size: {w: 400, h: 325, minh: 200, minw: 230},
+      size: {w: 325, h: 325, minh: 200, minw: 230},
       position: {x: 620, y: 340},
       effects: {},
       lastEffect: ''

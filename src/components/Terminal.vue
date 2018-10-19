@@ -3,6 +3,7 @@
     :title="title"
     :size="termsize"
     :customhandles="['ml', 'mr']"
+    :minimizable="false"
   >
     <div class="terminal-container">
       <VirtualList
@@ -41,7 +42,13 @@ export default {
     return {
       connected: false,
       messages: [],
-      title: `VESSEL ACCESS TERMINAL v${pkg.version || 'X.X.X'}`
+      title: `VESSEL ACCESS TERMINAL v${pkg.version || 'X.X.X'}`,
+      termsize: {
+        w: 600,
+        h: window.innerHeight - 80,
+        minh: 200,
+        minw: 350
+      }
     }
   },
 
@@ -80,14 +87,6 @@ export default {
       const messagesEl = this.messagesEl
       const { scrollHeight, scrollTop } = messagesEl
       return scrollHeight > scrollTop
-    },
-    termsize () {
-      return {
-        w: window.innerWidth - 24,
-        h: window.innerHeight - 8,
-        minh: 200,
-        minw: 350
-      }
     }
   },
 
