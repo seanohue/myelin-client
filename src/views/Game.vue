@@ -21,16 +21,8 @@ export default {
       this.dispatch(message)
     })
 
-    this.$howler.init().then((sounds) => {
-      const tube = require('@/assets/tubestatic.ogg')
-      // TODO: Consider extracting audiosystem into own file.
-      this.$ambientPlayer = new this.$howl({
-        src: [tube],
-        loop: true,
-        volume: 0.5
-      })
-      this.$ambientPlayer.play()
-      console.log(this.$ambientPlayer)
+    this.$audio.init().then((audio) => {
+      console.log(audio)
     })
   },
 

@@ -7,7 +7,7 @@ import router from './router'
 import Socket from './plugins/socket'
 import EventBus, {bus} from './plugins/bus'
 import Ansi from './plugins/ansi'
-import Howl from './plugins/howl'
+import Howl from './plugins/audio'
 
 const hostname = 'myelin.space'
 const port = 4001
