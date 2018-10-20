@@ -7,12 +7,11 @@
 </template>
 
 <script>
-import Terminal from '@/components/Terminal'
 
 export default {
   name: 'home',
   components: {
-    Terminal,
+    Terminal: () => import('@/components/Terminal'),
     StatsPanel: () => import('@/components/StatsPanel'),
     EffectsPanel: () => import('@/components/EffectsPanel')
   },

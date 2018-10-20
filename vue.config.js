@@ -3,11 +3,13 @@ const CompressionPlugin = require('compression-webpack-plugin')
 const zopfli = require('@gfx/zopfli')
 
 let plugins = []
+
 if (process.env.NODE_ENV === 'production') {
   const compressionTest = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i
   plugins = [
     new CompressionPlugin({
       algorithm (input, compressionOptions, callback) {
+        console.log('Compressing using ', compressionOptions)
         return zopfli.gzip(input, compressionOptions, callback)
       },
       compressionOptions: {
