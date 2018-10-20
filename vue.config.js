@@ -27,7 +27,19 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 module.exports = {
-  configureWebpack: {
+  configureWebpack: () => ({
     plugins
+  }),
+  chainWebpack: config => {
+    console.log(config.module
+      .rule('media'))
+    config.module
+      .rule('media')
+      .use('vue-loader')
+      .loader('vue-loader')
+      .tap(options => {
+        // modify the options...
+        return options
+      })
   }
 }

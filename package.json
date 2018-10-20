@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "ansi_up": "^3.0.0",
+    "howler": "^2.0.15",
     "humanize-duration-es6": "^1.0.1",
     "lodash": "^4.17.10",
     "vue": "^2.5.16",

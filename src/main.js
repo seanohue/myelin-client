@@ -7,6 +7,7 @@ import router from './router'
 import Socket from './plugins/socket'
 import EventBus, {bus} from './plugins/bus'
 import Ansi from './plugins/ansi'
+import Howl from './plugins/howl'
 
 const hostname = 'myelin.space'
 const port = 4001
@@ -17,6 +18,7 @@ Vue.use(EventBus)
 Vue.use(Socket, { bus, hostname, port })
 Vue.use(Ansi)
 Vue.use(HeroPatterns)
+Vue.use(Howl)
 
 new Vue({
   router,
