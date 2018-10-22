@@ -21,9 +21,7 @@ export default {
       this.dispatch(message)
     })
 
-    this.$audio.init().then((audio) => {
-      console.log(audio)
-    })
+    this.$audio.init()
   },
 
   methods: {
