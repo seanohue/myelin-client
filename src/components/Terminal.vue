@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import get from 'lodash-es/get'
 
 import pkg from '@/../package.json'
 
@@ -81,7 +81,7 @@ export default {
 
   computed: {
     messagesEl () {
-      return _.get(this, '$refs.messages.$el', {})
+      return get(this, '$refs.messages.$el', {})
     },
     scrolled () {
       const messagesEl = this.messagesEl

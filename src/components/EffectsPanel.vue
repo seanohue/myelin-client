@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import isEmpty from 'lodash-es/isEmpty'
 import MyelinPanel from '@/components/MyelinPanel'
 import EffectBlock from '@/components/EffectBlock'
 
@@ -35,7 +35,7 @@ export default {
 
   computed: {
     hasEffects () {
-      return !_.isEmpty(this.effects)
+      return !isEmpty(this.effects)
     }
   },
 

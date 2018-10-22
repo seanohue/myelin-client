@@ -1,4 +1,6 @@
-import _ from 'lodash'
+import partialRight from 'lodash-es/partialRight'
+import map from 'lodash-es/map'
+import find from 'lodash-es/find'
 
 const AudioPlugin = {
   install (Vue) {
@@ -26,7 +28,7 @@ class MyelinAudio {
       'tubestatic'
     ]
 
-    const processTracks = _.partialRight(_.map, this.processTrack)
+    const processTracks = partialRight(map, this.processTrack)
     this.tracks = processTracks(tracks)
     return this.tracks
   }
@@ -39,7 +41,7 @@ class MyelinAudio {
   }
 
   findTrack (trackname) {
-    return _.find(this.tracks, {name: trackname})
+    return find(this.tracks, {name: trackname})
   }
 
   setupPlayers () {

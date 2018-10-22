@@ -17,7 +17,9 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import isEmpty from 'lodash-es/isEmpty'
+import map from 'lodash-es/map'
+import sortBy from 'lodash-es/sortBy'
 import MyelinPanel from '@/components/MyelinPanel'
 import StatBar from '@/components/StatBar'
 
@@ -35,15 +37,15 @@ export default {
 
   computed: {
     hasStats () {
-      return !_.isEmpty(this.stats)
+      return !isEmpty(this.stats)
     },
 
     sortedStats () {
-      const named = _.map(this.stats, (stat, name) => {
+      const named = map(this.stats, (stat, name) => {
         stat.name = name
         return stat
       })
-      const sorted = _.sortBy(named, 'type')
+      const sorted = sortBy(named, 'type')
       sorted[sorted.length - 1].isLast = true
       return sorted
     }
