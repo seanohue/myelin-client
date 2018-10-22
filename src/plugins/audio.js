@@ -1,6 +1,6 @@
-import partialRight from 'lodash-es/partialRight'
-import map from 'lodash-es/map'
-import find from 'lodash-es/find'
+import partialRight from 'lodash/partialRight'
+import map from 'lodash/map'
+import find from 'lodash/find'
 
 const AudioPlugin = {
   install (Vue) {

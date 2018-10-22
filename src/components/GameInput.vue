@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import has from 'lodash-es/has'
-import get from 'lodash-es/get'
+import has from 'lodash/has'
+import get from 'lodash/get'
 
 export default {
   name: 'GameInput',

@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import partialRight from 'lodash-es/partialRight'
-import get from 'lodash-es/get'
+import partialRight from 'lodash/partialRight'
+import get from 'lodash/get'
 import Humanizer from 'humanize-duration-es6'
 
 const h = new Humanizer({

@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import get from 'lodash-es/get'
+import get from 'lodash/get'
 
 import pkg from '@/../package.json'
 

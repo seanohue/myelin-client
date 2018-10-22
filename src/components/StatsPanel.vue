@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import isEmpty from 'lodash-es/isEmpty'
-import map from 'lodash-es/map'
-import sortBy from 'lodash-es/sortBy'
+import isEmpty from 'lodash/isEmpty'
+import map from 'lodash/map'
+import sortBy from 'lodash/sortBy'
 import MyelinPanel from '@/components/MyelinPanel'
 import StatBar from '@/components/StatBar'
 

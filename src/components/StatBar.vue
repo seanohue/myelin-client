@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import capitalize from 'lodash-es/capitalize'
-import isNil from 'lodash-es/isNil'
+import capitalize from 'lodash/capitalize'
+import isNil from 'lodash/isNil'
 
 export default {
   props: {

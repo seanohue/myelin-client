@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import get from 'lodash-es/get'
+import get from 'lodash/get'
 import VueDraggableResizable from 'vue-draggable-resizable'
 
 export default {

@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import isEmpty from 'lodash-es/isEmpty'
+import isEmpty from 'lodash/isEmpty'
 import MyelinPanel from '@/components/MyelinPanel'
 import EffectBlock from '@/components/EffectBlock'
 
