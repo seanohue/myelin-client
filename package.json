@@ -6,7 +6,9 @@
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test": "npm run lint && npm run test:unit",
+    "test:unit": "vue-cli-service test:unit",
+    "build:report": "vue-cli-service build --report"
   },
   "dependencies": {
     "ansi_up": "^3.0.0",
