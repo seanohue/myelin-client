@@ -1,15 +1,18 @@
 <template>
   <div class="game-input">
     <form @submit.prevent="enter">
-      <input v-focus
-        autocomplete="nope"
-        class="game-input-field"
-        :type="type"
-        v-model.trim="userInput"
-        @keydown.enter="enter"
-        @keydown.up="traverseHistory('up')"
-        @keydown.down="traverseHistory('down')"
-      />
+      <label for="game-input">
+        <input v-focus
+          name="game-input"
+          autocomplete="nope"
+          class="game-input-field"
+          :type="type"
+          v-model.trim="userInput"
+          @keydown.enter="enter"
+          @keydown.up="traverseHistory('up')"
+          @keydown.down="traverseHistory('down')"
+        />
+      </label>
     </form>
   </div>
 </template>
