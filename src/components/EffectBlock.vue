@@ -12,8 +12,7 @@
 </template>
 
 <script>
-import partialRight from 'lodash-es/partialRight'
-import get from 'lodash-es/get'
+import * as _ from '_'
 import Humanizer from 'humanize-duration-es6'
 
 const h = new Humanizer({
@@ -27,7 +26,7 @@ const h = new Humanizer({
   ms: () => 'ms',
   decimal: () => '.'
 })
-const humanize = partialRight(h.humanize.bind(h), {largest: 2, round: true})
+const humanize = _.partialRight(h.humanize.bind(h), {largest: 2, round: true})
 
 export default {
   props: {
@@ -45,7 +44,7 @@ export default {
   },
   computed: {
     remainingTime () {
-      const remaining = get(this, 'effect.remaining', 0)
+      const remaining = _.get(this, 'effect.remaining', 0)
       return humanize(remaining)
     }
   }

@@ -18,8 +18,7 @@
 </template>
 
 <script>
-import has from 'lodash-es/has'
-import get from 'lodash-es/get'
+import * as _ from '_'
 
 export default {
   name: 'GameInput',
@@ -34,8 +33,8 @@ export default {
 
   created () {
     this.$bus.$on('ui:change', (changes) => {
-      if (has(changes, 'mask')) {
-        this.masked = get(changes, 'mask')
+      if (_.has(changes, 'mask')) {
+        this.masked = _.get(changes, 'mask')
       }
     })
   },

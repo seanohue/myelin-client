@@ -1,6 +1,7 @@
 const BrotliPlugin = require('brotli-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const zopfli = require('@gfx/zopfli')
+const path = require('path')
 
 let plugins = []
 
@@ -26,19 +27,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 module.exports = {
-  configureWebpack: () => ({
-    plugins
-  })
-  // chainWebpack: config => {
-  //   console.log(config.module
-  //     .rule('media'))
-  //   config.module
-  //     .rule('media')
-  //     .use('vue-loader')
-  //     .loader('vue-loader')
-  //     .tap(options => {
-  //       // modify the options...
-  //       return options
-  //     })
-  // }
+  configureWebpack (config) {
+    config.resolve.alias['_'] = path.join(__dirname, 'src', 'vendor', 'lodash.custom.min.js')
+    return {
+      plugins
+    }
+  }
 }

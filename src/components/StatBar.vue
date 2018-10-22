@@ -10,8 +10,7 @@
 </template>
 
 <script>
-import capitalize from 'lodash-es/capitalize'
-import isNil from 'lodash-es/isNil'
+import * as _ from '_'
 
 export default {
   props: {
@@ -31,7 +30,7 @@ export default {
 
   computed: {
     capName () {
-      return capitalize(this.name)
+      return _.capitalize(this.name)
     },
 
     isPool () {
@@ -42,7 +41,7 @@ export default {
     },
 
     difference () {
-      if (isNil(this.stat.base)) return ''
+      if (_.isNil(this.stat.base)) return ''
       const diff = this.stat.current - this.stat.base
       if (diff === 0) return '(+0)'
       if (diff > 0) return `(+${diff})`
