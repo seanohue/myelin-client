@@ -1,5 +1,5 @@
 <template>
-  <vue-hero-pattern class="main" pattern="temple">
+  <vue-hero-pattern class="main crt" pattern="temple">
     <Terminal/>
     <StatsPanel />
     <EffectsPanel />
@@ -7,12 +7,11 @@
 </template>
 
 <script>
-import Terminal from '@/components/Terminal'
 
 export default {
   name: 'home',
   components: {
-    Terminal,
+    Terminal: () => import('@/components/Terminal'),
     StatsPanel: () => import('@/components/StatsPanel'),
     EffectsPanel: () => import('@/components/EffectsPanel')
   },
@@ -20,6 +19,10 @@ export default {
     this.$bus.$on('message', m => {
       const message = JSON.parse(m.data)
       this.dispatch(message)
+    })
+
+    this.$audio.init().then((audio) => {
+      console.log(audio)
     })
   },
 
@@ -47,13 +50,6 @@ export default {
 </script>
 
 <style>
-.main {
-  width: 100vw;
-  height: 100vh;
-  background-color: gray;
-  display: flex;
-}
-
 .ansi-black-fg { color: #3A3A3A; }
 .ansi-red-fg { color: #DD948E; }
 .ansi-green-fg { color: #B6D1AA; }
