@@ -83,7 +83,7 @@ class MyelinAudio {
           loop: player !== 'sfx',
           preload: true,
           rate: track.rate || 1,
-          volume: this.getVolume(player),
+          volume: track.volume || this.getVolume(player),
           onloaderror (id, err) {
             return this.logError(player, `LoadError: ${id} -- ${err}`)
           },
