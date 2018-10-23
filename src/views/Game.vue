@@ -23,7 +23,7 @@ export default {
       this.dispatch(message)
     })
 
-    this.$audio.init().then(console.log)
+    this.$audio.init()
   },
 
   methods: {
