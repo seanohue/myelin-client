@@ -17,7 +17,8 @@ class MyelinAudio {
         this.setupTracks()
         return this.setupPlayers()
           .then(() => {
-            this.playAmbient()
+            this.ambient.play()
+            this.music.play()
             return this
           })
       })
@@ -25,7 +26,8 @@ class MyelinAudio {
 
   setupTracks () {
     const tracks = [
-      'tubestatic'
+      'tubestatic',
+      'VESSELACCESS'
     ]
 
     const processTracks = partialRight(map, this.processTrack)
@@ -62,24 +64,34 @@ class MyelinAudio {
           preload: true,
           volume: 0.25,
           onplayerror (id, err) {
-            console.log(`[Audio] PlayError: ${id} -- `, err)
+            console.log(`[Ambient Audio] PlayError: ${id} -- `, err)
           }
         })
+        return this
       })
   }
 
   initMusic () {
-    // this.music = new this.Howl({
-    //   src: [],
-    //   loop: true,
-    //   volume: 0.5
-    // })
-    return Promise.resolve()
-  }
-
-  playAmbient () {
-    if (!this.ambient) return false
-    return this.ambient.play()
+    const initial = this.findTrack('VESSELACCESS')
+    const fetchInitial = initial.fetch
+    if (!fetchInitial) return Promise.resolve()
+    return fetchInitial()
+      .then((src) => {
+        this.music = new this.Howl({
+          src: [src.default],
+          loop: true,
+          preload: true,
+          volume: 0.75,
+          rate: 0.5,
+          onloaderror (id, err) {
+            console.log(`[Music Audio] LoadError: ${id} -- `, err)
+          },
+          onplayerror (id, err) {
+            console.log(`[Music Audio] PlayError: ${id} -- `, err)
+          }
+        })
+        return this
+      })
   }
 }
 
