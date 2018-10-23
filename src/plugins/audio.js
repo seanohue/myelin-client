@@ -63,6 +63,7 @@ class MyelinAudio {
           loop: true,
           preload: true,
           volume: 0.25,
+          rate: 0.5,
           onplayerror (id, err) {
             console.log(`[Ambient Audio] PlayError: ${id} -- `, err)
           }
