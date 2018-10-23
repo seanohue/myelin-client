@@ -1,24 +1,32 @@
 import partialRight from 'lodash/partialRight'
 import map from 'lodash/map'
+import filter from 'lodash/filter'
 import find from 'lodash/find'
 import bind from 'lodash/bind'
 import capitalize from 'lodash/capitalize'
 
 import tracks from '@/data/tracks'
+import {bus} from './bus'
 
 const AudioPlugin = {
   install (Vue) {
-    Vue.prototype.$audio = new MyelinAudio()
+    Vue.prototype.$audio = new MyelinAudio(bus)
   }
 }
 
 class MyelinAudio {
+  constructor ($bus) {
+    this.$bus = $bus
+  }
+
   init () {
     return import('howler')
       .then(bind(this.initHowler, this))
       .then(bind(this.setupTracks, this))
       .then(bind(this.setupPlayers, this))
       .then(() => {
+        this.initSettings()
+
         this.ambient.play()
         this.music.play()
         return this
@@ -92,6 +100,52 @@ class MyelinAudio {
           }
         })
       })
+  }
+
+  initSettings () {
+    this.settings = {
+      muted: false,
+      musicVolume: 1,
+      sfxVolume: 1,
+      ambientVolume: 1
+    }
+
+    this.emitSettings()
+    this.$bus.$on('settings:init', () => this.emitSettings())
+
+    this.$bus.$on('audio:change', ({settings}) => this.handleSettingsChange(settings))
+  }
+
+  handleSettingsChange (settings) {
+    if (!settings) return
+    if (typeof settings.muted === 'boolean') {
+      this.eachPlayer(player => { player.mute = settings.muted })
+
+      if (settings.muted) {
+        this.stopAll()
+      } else {
+        this.eachPlayer(player => { player.mute = false })
+        this.playAll()
+      }
+    }
+  }
+
+  stopAll () {
+    this.eachPlayer(player => player.stop())
+  }
+
+  playAll () {
+    this.eachPlayer((player, type) => type !== 'sfx' && player.play())
+  }
+
+  eachPlayer (cb) {
+    const existingPlayers = filter(['ambient', 'music', 'sfx'], (player) => this[player])
+    return map(existingPlayers, (player) => cb(this[player], player))
+  }
+
+  emitSettings () {
+    console.log('emit audio settings')
+    this.$bus.$emit('audio:init', {settings: this.settings})
   }
 
   playTrack (player, trackname) {

@@ -3,6 +3,7 @@
     <Terminal/>
     <StatsPanel />
     <EffectsPanel />
+    <SettingsPanel />
   </vue-hero-pattern>
 </template>
 
@@ -13,7 +14,8 @@ export default {
   components: {
     Terminal: () => import('@/components/Terminal'),
     StatsPanel: () => import('@/components/StatsPanel'),
-    EffectsPanel: () => import('@/components/EffectsPanel')
+    EffectsPanel: () => import('@/components/EffectsPanel'),
+    SettingsPanel: () => import('@/components/SettingsPanel')
   },
   created () {
     this.$bus.$on('message', m => {
