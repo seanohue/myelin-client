@@ -2,6 +2,8 @@ import partialRight from 'lodash/partialRight'
 import map from 'lodash/map'
 import find from 'lodash/find'
 
+import tracks from '@/data/tracks'
+
 const AudioPlugin = {
   install (Vue) {
     Vue.prototype.$audio = new MyelinAudio()
@@ -25,21 +27,14 @@ class MyelinAudio {
   }
 
   setupTracks () {
-    const tracks = [
-      'tubestatic',
-      'VESSELACCESS'
-    ]
-
     const processTracks = partialRight(map, this.processTrack)
     this.tracks = processTracks(tracks)
     return this.tracks
   }
 
-  processTrack (trackname) {
-    return ({
-      name: trackname,
-      fetch: () => import(`@/assets/${trackname}.ogg`)
-    })
+  processTrack (track) {
+    track.fetch = () => import(`@/assets/${track.name}.ogg`)
+    return track
   }
 
   findTrack (trackname) {
@@ -63,7 +58,7 @@ class MyelinAudio {
           loop: true,
           preload: true,
           volume: 0.25,
-          rate: 0.5,
+          rate: initial.rate,
           onplayerror (id, err) {
             console.log(`[Ambient Audio] PlayError: ${id} -- `, err)
           }
@@ -83,7 +78,7 @@ class MyelinAudio {
           loop: true,
           preload: true,
           volume: 0.75,
-          rate: 0.5,
+          rate: initial.rate,
           onloaderror (id, err) {
             console.log(`[Music Audio] LoadError: ${id} -- `, err)
           },
