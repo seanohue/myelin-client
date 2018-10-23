@@ -144,7 +144,6 @@ class MyelinAudio {
   }
 
   emitSettings () {
-    console.log('emit audio settings')
     this.$bus.$emit('audio:init', {settings: this.settings})
   }
 
