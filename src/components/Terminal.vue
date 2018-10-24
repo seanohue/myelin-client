@@ -30,13 +30,15 @@ import get from 'lodash/get'
 
 import pkg from '@/../package.json'
 
-import VirtualList from 'vue-virtual-scroll-list'
-import GameInput from '@/components/GameInput'
 import MyelinPanel from '@/components/MyelinPanel'
 
 export default {
   name: 'Terminal',
-  components: { VirtualList, GameInput, MyelinPanel },
+  components: {
+    VirtualList: () => import('vue-virtual-scroll-list'),
+    GameInput: () => import('@/components/GameInput'),
+    MyelinPanel
+  },
 
   data () {
     return {

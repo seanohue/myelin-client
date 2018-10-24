@@ -21,10 +21,12 @@ import isEmpty from 'lodash/isEmpty'
 import map from 'lodash/map'
 import sortBy from 'lodash/sortBy'
 import MyelinPanel from '@/components/MyelinPanel'
-import StatBar from '@/components/StatBar'
 
 export default {
-  components: {MyelinPanel, StatBar},
+  components: {
+    MyelinPanel,
+    StatBar: () => import('@/components/StatBar')
+  },
 
   data () {
     return {

@@ -20,10 +20,12 @@
 <script>
 import isEmpty from 'lodash/isEmpty'
 import MyelinPanel from '@/components/MyelinPanel'
-import EffectBlock from '@/components/EffectBlock'
 
 export default {
-  components: {MyelinPanel, EffectBlock},
+  components: {
+    MyelinPanel,
+    EffectBlock: () => import('@/components/EffectBlock')
+  },
   data () {
     return {
       size: {w: 325, h: 325, minh: 200, minw: 230},
