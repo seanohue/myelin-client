@@ -35,7 +35,7 @@ import MyelinPanel from '@/components/MyelinPanel'
 export default {
   name: 'Terminal',
   components: {
-    VirtualList: () => import('vue-virtual-scroll-list'),
+    VirtualList: () => import('vue-virtual-scroll-list').then((stuff) => stuff.default),
     GameInput: () => import('@/components/GameInput'),
     MyelinPanel
   },
