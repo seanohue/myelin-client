@@ -3,6 +3,7 @@ import map from 'lodash/map'
 import filter from 'lodash/filter'
 import find from 'lodash/find'
 import bind from 'lodash/bind'
+import get from 'lodash/get'
 import capitalize from 'lodash/capitalize'
 
 import tracks from '@/data/tracks'
@@ -26,7 +27,7 @@ class MyelinAudio {
       .then(bind(this.setupPlayers, this))
       .then(() => {
         this.initSettings()
-
+        this.initEvents()
         this.ambient.play()
         this.music.play()
         return this
@@ -53,7 +54,8 @@ class MyelinAudio {
   setupPlayers () {
     return Promise.all([
       this.initAmbient(),
-      this.initMusic()
+      this.initMusic(),
+      this.initSfx()
     ])
   }
 
@@ -75,6 +77,15 @@ class MyelinAudio {
       })
   }
 
+  initSfx () {
+    const initial = this.findTrack('maximizepanel')
+    return this.createPlayer('sfx', initial)
+      .then(howl => {
+        this.sfx = howl
+        return this
+      })
+  }
+
   findTrack (trackname) {
     return find(this.tracks, {name: trackname})
   }
@@ -84,12 +95,14 @@ class MyelinAudio {
       ? bind(Promise.resolve, Promise, track.src)
       : () => track.fetch().then(imported => imported.default)
 
+    const currentlyMuted = get(this, 'settings.muted', false)
     return initTrack()
       .then(src => {
         return new this.Howl({
           src: [src],
           loop: player !== 'sfx',
           preload: true,
+          mute: currentlyMuted,
           rate: track.rate || 1,
           volume: track.volume || this.getVolume(player),
           onloaderror (id, err) {
@@ -112,12 +125,14 @@ class MyelinAudio {
 
     this.emitSettings()
     this.$bus.$on('settings:init', () => this.emitSettings())
-
     this.$bus.$on('audio:change', ({settings}) => this.handleSettingsChange(settings))
   }
 
   handleSettingsChange (settings) {
     if (!settings) return
+
+    Object.assign(this.settings, settings)
+
     if (typeof settings.muted === 'boolean') {
       this.eachPlayer(player => { player.mute = settings.muted })
 
@@ -128,6 +143,10 @@ class MyelinAudio {
         this.playAll()
       }
     }
+  }
+
+  initEvents () {
+    this.$bus.$on('audio:play', (player, trackname) => this.playTrack(player, trackname))
   }
 
   stopAll () {
@@ -153,7 +172,7 @@ class MyelinAudio {
       return this.logError(player, `TrackNotFoundError: ${trackname}}`)
     }
     if (!this[player]) {
-      return this.logError(player, 'PlayerNotFoundError: uninitialized')
+      return this.logError(player, `PlayerNotFoundError: ${player} uninitialized`)
     }
 
     this[player].stop()

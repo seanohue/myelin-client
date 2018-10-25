@@ -80,6 +80,8 @@ export default {
     },
     toggleMinimize () {
       this.minimized = !this.minimized
+      const sfxName = this.minimized ? 'minimize' : 'maximize'
+      this.$bus.$emit('audio:play', 'sfx', `${sfxName}panel`)
     }
   }
 }
