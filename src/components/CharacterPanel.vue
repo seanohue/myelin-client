@@ -6,35 +6,40 @@
     :size="size"
     :customhandles="['tl', 'tr']"
   >
-    <div class="stats-container">
-      <StatBar v-for="(stat, i) in sortedStats"
-        :key="i"
-        :stat="stat"
-        :name="stat.name">
-      </StatBar>
-    </div>
+    <PanelTabs :tabs="tabs">
+      <component :is="activePanel"></component>
+    </PanelTabs>
   </MyelinPanel>
 </template>
 
 <script>
 import isEmpty from 'lodash/isEmpty'
-import map from 'lodash/map'
-import sortBy from 'lodash/sortBy'
 import MyelinPanel from '@/components/MyelinPanel'
 
 export default {
   components: {
     MyelinPanel,
-    StatBar: () => import('@/components/StatBar')
+    PanelTabs: () => import('@/components/PanelTabs'),
+    StatsPanel: () => import('@/components/StatsPanel'),
+    EffectsPanel: () => import('@/components/EffectsPanel')
   },
 
   data () {
     return {
-      title: 'VËSŚÊL MONIT0R', // STATÜS
+      title: 'VËSŚÊL MONIT0R',
       size: {w: 325, h: 600, minh: 200, minw: 200},
       position: {x: 620, y: 100},
       stats: {},
-      effects: {}
+      effects: {},
+      lastEffect: '',
+      activePanel: 'StatsPanel',
+      tabs: [{
+        name: 'STATÜS',
+        component: 'StatsPanel'
+      }, {
+        name: 'CØNDITIONS',
+        component: 'EffectsPanel'
+      }]
     }
   },
 
@@ -49,6 +54,12 @@ export default {
       if (data) {
         this.stats = data
       }
+    })
+
+    this.$bus.$on('effects:change', (data) => {
+      if (!data) return
+      this.effects = data
+      this.lastEffect = this.effects[this.effects.length - 1].name
     })
   }
 }

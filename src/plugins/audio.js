@@ -30,6 +30,7 @@ class MyelinAudio {
         this.initEvents()
         this.ambient.play()
         this.music.play()
+        this.sfx.play()
         return this
       })
   }
@@ -78,7 +79,7 @@ class MyelinAudio {
   }
 
   initSfx () {
-    const initial = this.findTrack('maximizepanel')
+    const initial = this.findTrack('osstart')
     return this.createPlayer('sfx', initial)
       .then(howl => {
         this.sfx = howl
@@ -96,6 +97,7 @@ class MyelinAudio {
       : () => track.fetch().then(imported => imported.default)
 
     const currentlyMuted = get(this, 'settings.muted', false)
+
     return initTrack()
       .then(src => {
         return new this.Howl({
