@@ -18,6 +18,6 @@ export default [
   {
     type: 'sfx',
     name: 'maximizepanel',
-    volume: 0.5
+    volume: 0.35
   }
 ]
