@@ -50,6 +50,10 @@ export default {
   },
 
   created () {
+    this.$on('tab', (tabComponent) => {
+      this.activePanel = tabComponent
+    })
+
     this.$bus.$on('stats:change', (data) => {
       if (data) {
         this.stats = data

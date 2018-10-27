@@ -1,12 +1,12 @@
 <template>
   <div class="tab-container">
-    <div
+    <button
       :class="['tab', { active: currentTab === tab }]"
       v-for="(tab, index) in tabs"
       :key="index"
-      @click="$emit('tab', tab)">
+      @click="$emit('tab', tab.component)">
       {{tab.toUpperCase()}}
-    </div>
+    </button>
   </div>
 </template>
 

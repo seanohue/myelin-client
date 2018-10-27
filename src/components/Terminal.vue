@@ -47,7 +47,7 @@ export default {
       title: `VESSEL ACCESS TERMINAL v${pkg.version || 'X.X.X'}`,
       termsize: {
         w: 600,
-        h: window.innerHeight - 80,
+        h: 800,
         minh: 200,
         minw: 350
       }

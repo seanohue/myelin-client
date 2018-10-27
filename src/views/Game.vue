@@ -1,8 +1,7 @@
 <template>
   <vue-hero-pattern class="main crt" pattern="temple">
-    <Terminal/>
-    <StatsPanel />
-    <EffectsPanel />
+    <Terminal />
+    <CharacterPanel />
     <SettingsPanel />
   </vue-hero-pattern>
 </template>
@@ -13,8 +12,7 @@ export default {
   name: 'home',
   components: {
     Terminal: () => import('@/components/Terminal'),
-    StatsPanel: () => import('@/components/StatsPanel'),
-    EffectsPanel: () => import('@/components/EffectsPanel'),
+    CharacterPanel: () => import('@/components/CharacterPanel'),
     SettingsPanel: () => import('@/components/SettingsPanel')
   },
   created () {
