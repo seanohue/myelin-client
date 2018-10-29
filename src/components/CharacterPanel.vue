@@ -6,8 +6,9 @@
     :size="size"
     :customhandles="['tl', 'tr']"
   >
-    <PanelTabs :tabs="tabs">
-      <component :is="activePanel"></component>
+    <PanelTabs :tabs="tabs" :activePanel="activePanel">
+      <component :is="activePanel" :stats="stats" :effects="effects">
+      </component>
     </PanelTabs>
   </MyelinPanel>
 </template>
@@ -56,11 +57,13 @@ export default {
 
     this.$bus.$on('stats:change', (data) => {
       if (data) {
+        console.log('new stats')
         this.stats = data
       }
     })
 
     this.$bus.$on('effects:change', (data) => {
+      console.log('new effects')
       if (!data) return
       this.effects = data
       this.lastEffect = this.effects[this.effects.length - 1].name

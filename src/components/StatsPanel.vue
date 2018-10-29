@@ -23,6 +23,7 @@ import sortBy from 'lodash/sortBy'
 import MyelinPanel from '@/components/MyelinPanel'
 
 export default {
+  props: ['stats'],
   components: {
     MyelinPanel,
     StatBar: () => import('@/components/StatBar')
@@ -32,8 +33,7 @@ export default {
     return {
       title: 'STATÜS MONITOR',
       size: {w: 325, h: 600, minh: 200, minw: 200},
-      position: {x: 620, y: 100},
-      stats: {}
+      position: {x: 620, y: 100}
     }
   },
 

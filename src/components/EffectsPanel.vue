@@ -22,6 +22,7 @@ import isEmpty from 'lodash/isEmpty'
 import MyelinPanel from '@/components/MyelinPanel'
 
 export default {
+  props: ['effects'],
   components: {
     MyelinPanel,
     EffectBlock: () => import('@/components/EffectBlock')
@@ -30,7 +31,6 @@ export default {
     return {
       size: {w: 325, h: 325, minh: 200, minw: 230},
       position: {x: 620, y: 340},
-      effects: {},
       lastEffect: ''
     }
   },

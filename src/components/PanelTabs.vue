@@ -1,11 +1,11 @@
 <template>
   <div class="tab-container">
     <button
-      :class="['tab', { active: currentTab === tab }]"
       v-for="(tab, index) in tabs"
       :key="index"
+      :class="['tab', { active: tab.component === activePanel }]"
       @click="$emit('tab', tab.component)">
-      {{tab.toUpperCase()}}
+      {{tab.name.toUpperCase()}}
     </button>
   </div>
 </template>
@@ -16,6 +16,9 @@ export default {
     tabs: {
       type: Array,
       required: true
+    },
+    activePanel: {
+      type: String
     }
   }
 }
