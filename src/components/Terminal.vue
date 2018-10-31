@@ -11,7 +11,6 @@
         :remain="20"
         :bench="20"
         :start="0"
-        :onscroll="scroll"
         ref="messages"
         class="terminal-messages">
         <span
@@ -26,17 +25,15 @@
 </template>
 
 <script>
-import get from 'lodash/get'
-
 import pkg from '@/../package.json'
-
+import VirtualList from 'vue-virtual-scroll-list'
 import MyelinPanel from '@/components/MyelinPanel'
 
 export default {
   name: 'Terminal',
   components: {
     GameInput: () => import('@/components/GameInput'),
-    VirtualList: () => import('vue-virtual-scroll-list').then((component) => component.default),
+    VirtualList,
     MyelinPanel
   },
 
@@ -47,7 +44,7 @@ export default {
       title: `VESSEL ACCESS TERMINAL v${pkg.version || 'X.X.X'}`,
       termsize: {
         w: 600,
-        h: window.innerHeight - 80,
+        h: 800,
         minh: 200,
         minw: 350
       }
@@ -70,7 +67,7 @@ export default {
       this.outputMessage('Unlinked.\n')
     })
 
-    this.$bus.$on('ui:output', this.outputMessage)
+    this.$bus.$on('ui:output', (msg) => this.outputMessage(msg))
 
     this.$socket.init()
     this.outputMessage('Linking to vessel...\n')
@@ -79,17 +76,6 @@ export default {
   beforeDestroy () {
     const NORMAL = 1000
     this.$socket.close(NORMAL, 'Player navigated from page.')
-  },
-
-  computed: {
-    messagesEl () {
-      return get(this, '$refs.messages.$el', {})
-    },
-    scrolled () {
-      const messagesEl = this.messagesEl
-      const { scrollHeight, scrollTop } = messagesEl
-      return scrollHeight > scrollTop
-    }
   },
 
   methods: {
@@ -104,11 +90,10 @@ export default {
       return this.messages
     },
 
-    scroll () {},
-
     scrollDown () {
       this.$nextTick(() => {
-        this.messagesEl.scrollTop = this.messagesEl.scrollHeight
+        if (!this.$refs.messages) return
+        this.$refs.messages.$el.scrollTop = this.$refs.messages.$el.scrollHeight
       })
     }
   }
