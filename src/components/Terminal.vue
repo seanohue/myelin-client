@@ -73,10 +73,10 @@ export default {
     this.outputMessage('Linking to vessel...\n')
   },
 
-  beforeDestroy () {
-    const NORMAL = 1000
-    this.$socket.close(NORMAL, 'Player navigated from page.')
-  },
+  // beforeDestroy () {
+  //   const NORMAL = 1000
+  //   this.$socket.close(NORMAL, 'Player navigated from page.')
+  // },
 
   methods: {
     ansi (message) {

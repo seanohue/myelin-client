@@ -1,5 +1,5 @@
 <template>
-  <vue-hero-pattern class="main crt" pattern="temple">
+  <vue-hero-pattern class="main" pattern="temple">
     <Terminal/>
     <StatsPanel />
     <EffectsPanel />
@@ -50,6 +50,10 @@ export default {
 </script>
 
 <style>
+.main {
+  height: 100vh;
+  width: 100vw;
+}
 .ansi-black-fg { color: #3A3A3A; }
 .ansi-red-fg { color: #DD948E; }
 .ansi-green-fg { color: #B6D1AA; }
