@@ -16,13 +16,16 @@
 <script>
 import isEmpty from 'lodash/isEmpty'
 import MyelinPanel from '@/components/MyelinPanel'
+import PanelTabs from '@/components/PanelTabs'
+import StatsPanel from '@/components/StatsPanel'
+import EffectsPanel from '@/components/EffectsPanel'
 
 export default {
   components: {
     MyelinPanel,
-    PanelTabs: () => import('@/components/PanelTabs'),
-    StatsPanel: () => import('@/components/StatsPanel'),
-    EffectsPanel: () => import('@/components/EffectsPanel')
+    PanelTabs,
+    StatsPanel,
+    EffectsPanel
   },
 
   data () {

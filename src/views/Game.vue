@@ -48,6 +48,10 @@ export default {
 </script>
 
 <style>
+.main {
+  height: 100vh;
+  width: 100vw;
+}
 .ansi-black-fg { color: #3A3A3A; }
 .ansi-red-fg { color: #DD948E; }
 .ansi-green-fg { color: #B6D1AA; }

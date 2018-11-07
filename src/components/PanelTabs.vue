@@ -26,5 +26,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+.tab {
+  font-family: 'Roboto Mono', monospace;
+}
 </style>

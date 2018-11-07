@@ -1,11 +1,4 @@
 <template>
-  <MyelinPanel
-    v-if="hasStats"
-    :title="title"
-    :position="position"
-    :size="size"
-    :customhandles="['tl', 'tr']"
-  >
     <div class="stats-container">
       <StatBar v-for="(stat, i) in sortedStats"
         :key="i"
@@ -13,7 +6,6 @@
         :name="stat.name">
       </StatBar>
     </div>
-  </MyelinPanel>
 </template>
 
 <script>
