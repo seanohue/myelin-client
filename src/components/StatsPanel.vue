@@ -46,6 +46,7 @@ export default {
   },
 
   created () {
+    console.log('Stats loaded!')
     this.$bus.$on('stats:change', (data) => {
       if (data) {
         this.stats = data
