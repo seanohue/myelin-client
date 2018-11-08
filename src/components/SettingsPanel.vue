@@ -32,7 +32,7 @@ export default {
     return {
       title: 'PREFERENÇE§',
       size: {w: 325, h: 600, minh: 200, minw: 200},
-      position: {x: 620, y: 100},
+      position: {x: 620, y: 600},
       settings: {
         audio: {
           muted: false
