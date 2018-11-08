@@ -6,9 +6,9 @@
     :size="size"
     :customhandles="['tl', 'tr']"
   >
-    <PanelTabs @tab="switchTab($event)" :tabs="tabs" :activePanel="activePanel">
+    <PanelTabs class="character-panel-container" @tab="switchTab($event)" :tabs="tabs" :activePanel="activePanel">
       <keep-alive>
-        <component class="character-panel-container" :is="activePanel" :stats="stats" :effects="effects">
+        <component :is="activePanel" :stats="stats" :effects="effects">
         </component>
       </keep-alive>
     </PanelTabs>

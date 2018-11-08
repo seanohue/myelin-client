@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="tab-container">
     <button
       v-for="(tab, index) in tabs"
@@ -7,8 +8,9 @@
       @click="switchTo(tab)">
       {{tab.name.toUpperCase()}}
     </button>
-    <slot></slot>
   </div>
+  <slot></slot>
+</div>
 </template>
 
 <script>
@@ -34,6 +36,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.tab-container {
+  flex-flow: row wrap;
+}
 .tab {
   font-family: 'Roboto Mono', monospace;
 }
