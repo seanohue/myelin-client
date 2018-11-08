@@ -1,20 +1,12 @@
 <template>
-  <MyelinPanel
-    v-if="hasEffects"
-    title="PRES▒NT CØNDITIONS"
-    :position="position"
-    :size="size"
-    :customhandles="['tl', 'tr']"
-  >
-    <div class="effects-container">
-      <EffectBlock
-        v-for="(effect, key) in effects"
-        :key="key"
-        :effect=effect
-        :isLast="effect.name === lastEffect">
-      </EffectBlock>
-    </div>
-  </MyelinPanel>
+  <div class="effects-container">
+    <EffectBlock
+      v-for="(effect, key) in effects"
+      :key="key"
+      :effect=effect
+      :isLast="effect.name === lastEffect">
+    </EffectBlock>
+  </div>
 </template>
 
 <script>

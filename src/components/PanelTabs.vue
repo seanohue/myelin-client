@@ -4,9 +4,10 @@
       v-for="(tab, index) in tabs"
       :key="index"
       :class="['tab', { active: tab.component === activePanel }]"
-      @click="$emit('tab', tab.component)">
+      @click="switchTo(tab)">
       {{tab.name.toUpperCase()}}
     </button>
+    <slot></slot>
   </div>
 </template>
 
@@ -20,11 +21,20 @@ export default {
     activePanel: {
       type: String
     }
+  },
+
+  methods: {
+    switchTo (tab) {
+      console.log('Emitting', tab)
+      this.$emit('tab', tab.component)
+    }
   }
 }
 
 </script>
 
 <style lang="less" scoped>
-
+.tab {
+  font-family: 'Roboto Mono', monospace;
+}
 </style>

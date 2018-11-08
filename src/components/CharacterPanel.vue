@@ -6,9 +6,11 @@
     :size="size"
     :customhandles="['tl', 'tr']"
   >
-    <PanelTabs :tabs="tabs" :activePanel="activePanel">
-      <component :is="activePanel" :stats="stats" :effects="effects">
-      </component>
+    <PanelTabs @tab="switchTab($event)" :tabs="tabs" :activePanel="activePanel">
+      <keep-alive>
+        <component class="character-panel-container" :is="activePanel" :stats="stats" :effects="effects">
+        </component>
+      </keep-alive>
     </PanelTabs>
   </MyelinPanel>
 </template>
@@ -16,45 +18,50 @@
 <script>
 import isEmpty from 'lodash/isEmpty'
 import MyelinPanel from '@/components/MyelinPanel'
+import PanelTabs from '@/components/PanelTabs'
+import StatsPanel from '@/components/StatsPanel'
+import EffectsPanel from '@/components/EffectsPanel'
 
 export default {
   components: {
     MyelinPanel,
-    PanelTabs: () => import('@/components/PanelTabs'),
-    StatsPanel: () => import('@/components/StatsPanel'),
-    EffectsPanel: () => import('@/components/EffectsPanel')
+    PanelTabs,
+    StatsPanel,
+    EffectsPanel
   },
 
   data () {
     return {
-      title: 'VËSŚÊL MONIT0R',
+      title: 'VËSŚEL MONIT0R',
       size: {w: 325, h: 600, minh: 200, minw: 200},
       position: {x: 620, y: 100},
-      stats: {},
+      stats: {health: {type: 'pool', current: 5, max: 10}},
       effects: {},
       lastEffect: '',
-      activePanel: 'StatsPanel',
+      activePanel: 'stats-panel',
       tabs: [{
         name: 'STATÜS',
-        component: 'StatsPanel'
+        component: 'stats-panel'
       }, {
         name: 'CØNDITIONS',
-        component: 'EffectsPanel'
+        component: 'effects-panel'
       }]
     }
   },
 
   computed: {
     hasCharacterData () {
-      return !isEmpty(this.stats) && !isEmpty(this.effects)
+      return !isEmpty(this.stats)
+    }
+  },
+
+  methods: {
+    switchTab (which) {
+      this.activePanel = which
     }
   },
 
   created () {
-    this.$on('tab', (tabComponent) => {
-      this.activePanel = tabComponent
-    })
-
     this.$bus.$on('stats:change', (data) => {
       if (data) {
         console.log('new stats')
@@ -63,7 +70,6 @@ export default {
     })
 
     this.$bus.$on('effects:change', (data) => {
-      console.log('new effects')
       if (!data) return
       this.effects = data
       this.lastEffect = this.effects[this.effects.length - 1].name
@@ -75,7 +81,7 @@ export default {
 <style lang="less" scoped>
 @import '../app.less';
 
-.stats-container {
+.character-panel-container {
   .panel-content-container()
 }
 </style>
