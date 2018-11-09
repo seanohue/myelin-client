@@ -37,9 +37,15 @@ export default {
 
 <style lang="less" scoped>
 .tab-container {
+  height: 26px;
+  display: flex;
   flex-flow: row wrap;
+  justify-content: space-around;
 }
 .tab {
+  align-content: center;
+  display: flex;
+  align-content: center;
   font-family: 'Roboto Mono', monospace;
 }
 </style>
