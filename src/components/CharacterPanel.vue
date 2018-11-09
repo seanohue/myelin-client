@@ -35,7 +35,7 @@ export default {
       title: 'VËSŚEL MONIT0R',
       size: {w: 325, h: 600, minh: 300, minw: 300},
       position: {x: 620, y: 100},
-      stats: {health: {type: 'pool', current: 5, max: 10}},
+      stats: {},
       effects: {},
       lastEffect: '',
       activePanel: 'stats-panel',

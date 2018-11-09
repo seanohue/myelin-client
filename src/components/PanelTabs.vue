@@ -42,10 +42,13 @@ export default {
   flex-flow: row wrap;
   justify-content: space-around;
 }
+
 .tab {
   align-content: center;
   display: flex;
   align-content: center;
   font-family: 'Roboto Mono', monospace;
+  font-size: 2em;
+  line-height: 3em;
 }
 </style>
