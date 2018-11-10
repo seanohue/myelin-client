@@ -47,16 +47,19 @@ export default {
   align-content: center;
   display: flex;
   align-content: center;
-  font-family: 'Roboto Mono', monospace;
+  font-family: "BigBlue Terminal", "Roboto Mono", monospace;
   font-size: 16px;
   line-height: 20px;
   background-color: @green-middle;
-  border: 1px @term-background;
+  border-width: 1px;
+  border-color: @term-background;
+  border-style: groove;
   color: @term-foreground;
 }
 
 .active {
-  border: 2px @green-background;
+  border-color: @green-background;
+  border-width: 2px 2px 0px 2px;
   background-color: @term-foreground;
   color: @term-background;
 }
