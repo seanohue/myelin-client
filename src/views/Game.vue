@@ -31,12 +31,14 @@ export default {
           return this.$bus.$emit('ui:output', message.message)
         case 'ui':
           return this.$bus.$emit('ui:change', message.data)
+        case 'audio':
+          return this.$but.$emit('audio:change', message.data)
         case 'data':
           switch (message.group) {
             case 'attributes':
               return this.$bus.$emit('stats:change', message.data)
             case 'effects':
-              return this.$bus.$emit('effects:change', message.data)
+              return this.$bus.$emit('effects:change', message.audioCue, message.options)
           }
           return this.$bus.$emit('data:change', message.data)
         default:

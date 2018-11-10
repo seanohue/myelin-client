@@ -149,6 +149,21 @@ class MyelinAudio {
 
   initEvents () {
     this.$bus.$on('audio:play', (player, trackname) => this.playTrack(player, trackname))
+    this.$bus.$on('audio:change', (cue, options) => this.handleAudioChange(cue, options))
+  }
+
+  handleAudioChange (cue, options) {
+    if (!cue) return this.logError('SYSTEM', 'Audio change sent with no cue!')
+
+    if (options.stop) {
+      if (cue === 'all') return this.stopAll()
+      return this.eachPlayer((player, type) => type === cue && player.stop())
+    }
+
+    const track = this.findTrack(cue)
+    if (!track) return this.logError('SYSTEM', `Track not found for cue: ${cue}.`)
+    const {type, name} = track
+    return this.playTrack(type, name)
   }
 
   stopAll () {
