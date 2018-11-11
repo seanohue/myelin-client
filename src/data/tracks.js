@@ -13,6 +13,12 @@ export default [
   },
 
   {
+    type: 'music',
+    name: 'cryochamber',
+    rate: 0.75
+  },
+
+  {
     type: 'sfx',
     name: 'minimizepanel',
     volume: 0.5
