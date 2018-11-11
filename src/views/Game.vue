@@ -1,9 +1,9 @@
 <template>
-  <vue-hero-pattern class="main crt" pattern="temple">
+  <div>
     <Terminal />
     <CharacterPanel />
     <SettingsPanel />
-  </vue-hero-pattern>
+  </div>
 </template>
 
 <script>

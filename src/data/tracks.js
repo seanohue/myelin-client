@@ -31,7 +31,12 @@ export default [
   {
     type: 'sfx',
     name: 'vesselspawned',
-    volume: 0.35
+    volume: 0.5
+  },
+  {
+    type: 'sfx',
+    name: 'vesseldeath',
+    volume: 0.85
   },
   {
     type: 'sfx',
