@@ -31,14 +31,6 @@ export default {
     hasEffects () {
       return !isEmpty(this.effects)
     }
-  },
-
-  created () {
-    this.$bus.$on('effects:change', (data) => {
-      if (!data) return
-      this.effects = data
-      this.lastEffect = this.effects[this.effects.length - 1].name
-    })
   }
 }
 </script>

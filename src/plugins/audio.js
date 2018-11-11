@@ -126,8 +126,6 @@ class MyelinAudio {
     }
 
     this.emitSettings()
-    this.$bus.$on('settings:init', () => this.emitSettings())
-    this.$bus.$on('audio:change', ({settings}) => this.handleSettingsChange(settings))
   }
 
   handleSettingsChange (settings) {
@@ -148,8 +146,13 @@ class MyelinAudio {
   }
 
   initEvents () {
+    this.$bus.$on('settings:init', () => this.emitSettings())
+    this.$bus.$on('audio:change', ({settings, cue, options}) => {
+      console.log('Audio Change:', {cue, options, settings})
+      if (settings) return this.handleSettingsChange(settings)
+      return this.handleAudioChange(cue, options)
+    })
     this.$bus.$on('audio:play', (player, trackname) => this.playTrack(player, trackname))
-    this.$bus.$on('audio:change', (cue, options) => this.handleAudioChange(cue, options))
   }
 
   handleAudioChange (cue, options) {

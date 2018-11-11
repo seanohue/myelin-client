@@ -32,7 +32,8 @@ export default {
         case 'ui':
           return this.$bus.$emit('ui:change', message.data)
         case 'audio':
-          return this.$but.$emit('audio:change', message.data)
+          console.log('Audio message', message)
+          return this.$bus.$emit('audio:change', message.data)
         case 'data':
           switch (message.group) {
             case 'attributes':

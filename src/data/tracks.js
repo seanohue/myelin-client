@@ -24,6 +24,11 @@ export default [
   },
   {
     type: 'sfx',
+    name: 'vesselspawned',
+    volume: 0.35
+  },
+  {
+    type: 'sfx',
     name: 'osstart',
     volume: 0.5,
     rate: 0.5

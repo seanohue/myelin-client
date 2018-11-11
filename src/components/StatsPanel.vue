@@ -12,6 +12,7 @@
 import isEmpty from 'lodash/isEmpty'
 import map from 'lodash/map'
 import sortBy from 'lodash/sortBy'
+import assign from 'lodash/assign'
 import MyelinPanel from '@/components/MyelinPanel'
 
 export default {
@@ -35,23 +36,11 @@ export default {
     },
 
     sortedStats () {
-      const named = map(this.stats, (stat, name) => {
-        stat.name = name
-        return stat
-      })
+      const named = map(this.stats, (stat, name) => assign({}, stat, {name}))
       const sorted = sortBy(named, 'type')
       sorted[sorted.length - 1].isLast = true
       return sorted
     }
-  },
-
-  created () {
-    console.log('Stats loaded!')
-    this.$bus.$on('stats:change', (data) => {
-      if (data) {
-        this.stats = data
-      }
-    })
   }
 }
 </script>
