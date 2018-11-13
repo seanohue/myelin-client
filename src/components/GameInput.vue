@@ -2,12 +2,14 @@
   <div class="game-input">
     <form @submit.prevent="enter">
       <label for="game-input">
-        <input v-focus
+        <VueInfiniteAutocomplete v-focus
           name="game-input"
           autocomplete="nope"
           class="game-input-field"
+          placeholder="INPUT COMMAND"
           :type="type"
-          v-model.trim="userInput"
+          :options="currentOptions"
+          :value="userInput"
           @keydown.enter="enter"
           @keydown.up="traverseHistory('up')"
           @keydown.down="traverseHistory('down')"
@@ -20,9 +22,11 @@
 <script>
 import has from 'lodash/has'
 import get from 'lodash/get'
+import VueInfiniteAutocomplete from 'vue-infinite-autocomplete'
 
 export default {
   name: 'GameInput',
+  components: { VueInfiniteAutocomplete },
 
   directives: {
     focus: {
@@ -38,15 +42,19 @@ export default {
         this.masked = get(changes, 'mask')
       }
     })
+
+    this.$bus.$on('commandsList:update', (commands) => {
+      this.commandsList = commands
+    })
   },
 
   data () {
     return {
       masked: false,
       userInput: '',
-      // Use Vuex for this eventually
       historyIndex: 0,
-      history: []
+      history: [],
+      options: ['commands']
     }
   },
 
@@ -54,6 +62,15 @@ export default {
     disabled () {
       return !this.$socket.isReady()
     },
+
+    currentOptions () {
+      return this.options.map((text) => {
+        console.log({text})
+        text = text || ''
+        return {text, value: text.toLowerCase()}
+      })
+    },
+
     type () {
       if (this.masked) {
         return 'password'
@@ -84,6 +101,12 @@ export default {
       this.clear()
     },
 
+    formatTabComplete (word, prev, position) {
+      console.log({word, prev, position})
+      word += ' '
+      return {word, prev}
+    },
+
     traverseHistory (direction) {
       const inc = direction === 'up' ? -1 : 1
       this.historyIndex += inc
@@ -101,7 +124,7 @@ export default {
   display: flex;
   height: 32px;
   padding: 8px 8px 8px 0px;
-  background-color: #24282a;
+  background-color: @term-background;
 }
 
 .game-input:focus {
