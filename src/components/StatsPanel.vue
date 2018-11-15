@@ -16,15 +16,15 @@ import assign from 'lodash/assign'
 import MyelinPanel from '@/components/MyelinPanel'
 
 export default {
+  components: {
+    MyelinPanel,
+    StatBar: () => import('@/components/StatBar')
+  },
   props: {
     stats: {
       type: Object,
       required: true
     }
-  },
-  components: {
-    MyelinPanel,
-    StatBar: () => import('@/components/StatBar')
   },
 
   data () {

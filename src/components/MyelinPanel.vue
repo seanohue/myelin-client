@@ -7,10 +7,10 @@
       :y="y"
       :minh="minh"
       :minw="minw"
+      :handles="customhandles"
+      drag-handle=".titlebar"
       @dragging="onDrag"
       @resizing="onResize"
-      drag-handle=".titlebar"
-      :handles="customhandles"
     >
       <div class="titlebar">
         <span class="title">{{ title }}</span>

@@ -3,7 +3,7 @@
     <EffectBlock
       v-for="(effect, key) in effects"
       :key="key"
-      :effect=effect
+      :effect="effect"
       :is-last="effect.name === lastEffect"/>
   </div>
 </template>
@@ -13,15 +13,15 @@ import isEmpty from 'lodash/isEmpty'
 import MyelinPanel from '@/components/MyelinPanel'
 
 export default {
+  components: {
+    MyelinPanel,
+    EffectBlock: () => import('@/components/EffectBlock')
+  },
   props: {
     effects: {
       type: Object,
       required: true
     }
-  },
-  components: {
-    MyelinPanel,
-    EffectBlock: () => import('@/components/EffectBlock')
   },
   data () {
     return {

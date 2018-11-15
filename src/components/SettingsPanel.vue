@@ -9,10 +9,10 @@
     <div class="settings-container">
       <form>
         <input
-          type="checkbox"
-          name="mute"
           :value="settings.audio.muted"
           v-model="settings.audio.muted"
+          type="checkbox"
+          name="mute"
           @change="updateAudioSettings()" >Mute Audio<br>
       </form>
     </div>
@@ -47,18 +47,18 @@ export default {
     }
   },
 
-  methods: {
-    updateAudioSettings () {
-      const settings = get(this, 'settings.audio', {})
-      this.$bus.$emit('audio:change', {settings})
-    }
-  },
-
   created () {
     this.$bus.$on('audio:init', ({settings}) => {
       this.settings = Object.assign(this.settings, { audio: settings })
     })
     this.$bus.$emit('settings:init')
+  },
+
+  methods: {
+    updateAudioSettings () {
+      const settings = get(this, 'settings.audio', {})
+      this.$bus.$emit('audio:change', {settings})
+    }
   }
 }
 </script>

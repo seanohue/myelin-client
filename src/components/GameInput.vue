@@ -5,12 +5,12 @@
         <input
           v-focus
           ref="input"
+          v-model.trim="userInput"
+          :data-source="commandsList"
           name="game-input"
           autocomplete="nope"
           class="game-input-field"
           placeholder="$"
-          v-model.trim="userInput"
-          :data-source="commandsList"
           @keydown.enter="enter"
           @keydown.up="traverseHistory('up')"
           @keydown.down="traverseHistory('down')"
@@ -25,6 +25,7 @@
 import has from 'lodash/has'
 import get from 'lodash/get'
 import first from 'lodash/first'
+import map from 'lodash/map'
 
 import { tabComplete } from 'tab-completion'
 
@@ -36,18 +37,6 @@ export default {
         el.focus()
       }
     }
-  },
-
-  created () {
-    this.$bus.$on('ui:change', (changes) => {
-      if (has(changes, 'mask')) {
-        this.masked = get(changes, 'mask')
-      }
-    })
-
-    this.$bus.$on('commands:update', (commands) => {
-      this.commandsList = commands
-    })
   },
 
   data () {
@@ -72,6 +61,18 @@ export default {
       }
       return 'text'
     }
+  },
+
+  created () {
+    this.$bus.$on('ui:change', (changes) => {
+      if (has(changes, 'mask')) {
+        this.masked = get(changes, 'mask')
+      }
+    })
+
+    this.$bus.$on('commands:update', (commands) => {
+      this.commandsList = map(commands, 'name')
+    })
   },
 
   methods: {

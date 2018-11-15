@@ -7,17 +7,17 @@
   >
     <div class="terminal-container">
       <VirtualList
+        ref="messages"
         :size="30"
         :remain="20"
         :bench="20"
         :start="0"
-        ref="messages"
         class="terminal-messages">
         <span
-          v-html="ansi(message)"
           v-for="(message, index) in messages"
           :key="index"
-          class="terminal-message"/>
+          class="terminal-message"
+          v-html="ansi(message)"/>
       </VirtualList>
       <GameInput/>
     </div>

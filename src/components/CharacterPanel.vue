@@ -7,10 +7,10 @@
     :customhandles="['tl', 'tr']"
   >
     <PanelTabs
-      class="character-panel-container"
-      @tab="switchTab($event)"
       :tabs="tabs"
-      :active-panel="activePanel">
+      :active-panel="activePanel"
+      class="character-panel-container"
+      @tab="switchTab($event)">
       <keep-alive>
         <component
           :is="activePanel"
@@ -61,12 +61,6 @@ export default {
     }
   },
 
-  methods: {
-    switchTab (which) {
-      this.activePanel = which
-    }
-  },
-
   created () {
     this.$bus.$on('stats:change', (data) => {
       if (data) {
@@ -80,6 +74,12 @@ export default {
       this.effects = data
       this.lastEffect = this.effects[this.effects.length - 1].name
     })
+  },
+
+  methods: {
+    switchTab (which) {
+      this.activePanel = which
+    }
   }
 }
 </script>
