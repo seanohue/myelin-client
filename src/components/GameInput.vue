@@ -14,7 +14,7 @@
           @keydown.enter="enter"
           @keydown.up="traverseHistory('up')"
           @keydown.down="traverseHistory('down')"
-          @keydown.tab="tabComplete()"
+          @keydown.tab="tabComplete($event)"
         >
       </label>
     </form>
@@ -96,9 +96,14 @@ export default {
       this.clear()
     },
 
-    tabComplete () {
+    tabComplete (evt) {
+      if (evt.shiftKey || !this.userInput) return
+
+      evt.preventDefault()
+
       const possible = tabComplete(this.commandsList, this.userInput)
-      const found = first(possible)
+      const found = first([].concat(possible))
+      console.log({evt, possible, found, input: this.userInput})
       if (found) {
         this.userInput = found
       }
