@@ -1,10 +1,12 @@
 <template>
-  <div class="statbar-container" :class="{divider: !stat.isLast}">
+  <div
+    class="statbar-container"
+    :class="{divider: !stat.isLast}">
     <div v-if="isPool">
-      <span class="stat-label">{{capName}}:</span> <span class="stat-value">{{stat.current}}/{{stat.max}}</span>
+      <span class="stat-label">{{ capName }}:</span> <span class="stat-value">{{ stat.current }}/{{ stat.max }}</span>
     </div>
     <div v-if="isStat">
-      <span class="stat-label">{{capName}}:</span> <span class="stat-value">{{stat.current}} {{difference}}</span>
+      <span class="stat-label">{{ capName }}:</span> <span class="stat-value">{{ stat.current }} {{ difference }}</span>
     </div>
   </div>
 </template>

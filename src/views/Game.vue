@@ -9,7 +9,7 @@
 <script>
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
     Terminal: () => import('@/components/Terminal'),
     CharacterPanel: () => import('@/components/CharacterPanel'),

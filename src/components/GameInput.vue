@@ -2,7 +2,8 @@
   <div class="game-input">
     <form @submit.prevent="enter">
       <label for="game-input">
-        <input v-focus
+        <input
+          v-focus
           ref="input"
           name="game-input"
           autocomplete="nope"
@@ -12,7 +13,7 @@
           @keydown.enter="enter"
           @keydown.up="traverseHistory('up')"
           @keydown.down="traverseHistory('down')"
-        />
+        >
       </label>
     </form>
   </div>
@@ -108,6 +109,7 @@ export default {
       this.autocomplete = new InfiniteAutocomplete(this.$refs.input, {
         data: [{text: 'command', value: 'command'}]
       })
+      return this.autocomplete
     },
 
     traverseHistory (direction) {

@@ -7,17 +7,20 @@
       :y="y"
       :minh="minh"
       :minw="minw"
-      v-on:dragging="onDrag"
-      v-on:resizing="onResize"
+      @dragging="onDrag"
+      @resizing="onResize"
       drag-handle=".titlebar"
       :handles="customhandles"
     >
       <div class="titlebar">
-        <span class="title">{{title}}</span>
-        <div v-if="minimizable" class="titlebar-button" @click="toggleMinimize()">{{minIcon}}</div>
+        <span class="title">{{ title }}</span>
+        <div
+          v-if="minimizable"
+          class="titlebar-button"
+          @click="toggleMinimize()">{{ minIcon }}</div>
       </div>
       <div v-show="!minimized">
-        <slot></slot>
+        <slot/>
       </div>
     </vue-draggable-resizable>
   </transition>
@@ -35,13 +38,24 @@ export default {
       default: 'ANZEIGE O.S.'
     },
     size: {
-      type: Object
+      type: Object,
+      default: () => ({
+        w: 200,
+        h: 200,
+        minh: 200,
+        minw: 200
+      })
     },
     position: {
-      type: Object
+      type: Object,
+      default: () => ({
+        x: 100,
+        y: 100
+      })
     },
     customhandles: {
-      type: Array
+      type: Array,
+      default: () => ['tl', 'tm', 'tr', 'mr', 'br', 'bm', 'bl', 'ml']
     },
     minimizable: {
       type: Boolean,
@@ -57,7 +71,7 @@ export default {
       minw: get(this, 'size.minw', 50),
       x: get(this, 'position.x', 0),
       y: get(this, 'position.y', 0),
-      handles: get(this, 'customhandles', ['tl', 'tm', 'tr', 'mr', 'br', 'bm', 'bl', 'ml'])
+      handles: get(this, 'customhandles')
     }
   },
 

@@ -1,11 +1,15 @@
 <template>
-  <div class="effect-container" :class="{divider: !isLast}">
+  <div
+    class="effect-container"
+    :class="{divider: !isLast}">
     <div v-if="effect.remaining">
-      <span class="effect-label">{{effect.name}}</span>
-      <span class="effect-timing" v-if="effect.remaining">{{remainingTime}}</span>
+      <span class="effect-label">{{ effect.name }}</span>
+      <span
+        class="effect-timing"
+        v-if="effect.remaining">{{ remainingTime }}</span>
     </div>
     <div v-else>
-      <span class="effect-label">{{effect.name}}</span>
+      <span class="effect-label">{{ effect.name }}</span>
       <span class="effect-timing">Permanent</span>
     </div>
   </div>

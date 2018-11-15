@@ -1,14 +1,14 @@
 <template>
-<div>
-  <div class="tab-container">
-    <button
-      v-for="(tab, index) in tabs"
-      :key="index"
-      :class="['tab', { active: tab.component === activePanel }]"
-      @click="switchTo(tab)">{{tab.name.toUpperCase()}}</button>
+  <div>
+    <div class="tab-container">
+      <button
+        v-for="(tab, index) in tabs"
+        :key="index"
+        :class="['tab', { active: tab.component === activePanel }]"
+        @click="switchTo(tab)">{{ tab.name.toUpperCase() }}</button>
+    </div>
+    <slot/>
   </div>
-  <slot></slot>
-</div>
 </template>
 
 <script>
@@ -19,7 +19,8 @@ export default {
       required: true
     },
     activePanel: {
-      type: String
+      type: String,
+      required: true
     }
   },
 

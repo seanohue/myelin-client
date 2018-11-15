@@ -17,9 +17,9 @@
           v-html="ansi(message)"
           v-for="(message, index) in messages"
           :key="index"
-          class="terminal-message"></span>
+          class="terminal-message"/>
       </VirtualList>
-      <GameInput></GameInput>
+      <GameInput/>
     </div>
   </MyelinPanel>
 </template>
