@@ -2,14 +2,13 @@
   <div class="game-input">
     <form @submit.prevent="enter">
       <label for="game-input">
-        <VueInfiniteAutocomplete v-focus
+        <input v-focus
+          ref="input"
           name="game-input"
           autocomplete="nope"
           class="game-input-field"
-          placeholder="INPUT COMMAND"
-          :type="type"
-          :options="currentOptions"
-          :value="userInput"
+          placeholder="$"
+          v-model.trim="userInput"
           @keydown.enter="enter"
           @keydown.up="traverseHistory('up')"
           @keydown.down="traverseHistory('down')"
@@ -22,11 +21,10 @@
 <script>
 import has from 'lodash/has'
 import get from 'lodash/get'
-import VueInfiniteAutocomplete from 'vue-infinite-autocomplete'
+import { InfiniteAutocomplete } from 'infinite-autocomplete'
 
 export default {
   name: 'GameInput',
-  components: { VueInfiniteAutocomplete },
 
   directives: {
     focus: {
@@ -48,11 +46,16 @@ export default {
     })
   },
 
+  mounted () {
+    this.initAutocomplete()
+  },
+
   data () {
     return {
       masked: false,
       userInput: '',
       historyIndex: 0,
+      autocomplete: null,
       history: [],
       options: ['commands']
     }
@@ -101,10 +104,10 @@ export default {
       this.clear()
     },
 
-    formatTabComplete (word, prev, position) {
-      console.log({word, prev, position})
-      word += ' '
-      return {word, prev}
+    initAutocomplete () {
+      this.autocomplete = new InfiniteAutocomplete(this.$refs.input, {
+        data: [{text: 'command', value: 'command'}]
+      })
     },
 
     traverseHistory (direction) {
