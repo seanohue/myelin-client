@@ -10,9 +10,11 @@
           class="game-input-field"
           placeholder="$"
           v-model.trim="userInput"
+          :data-source="commandsList"
           @keydown.enter="enter"
           @keydown.up="traverseHistory('up')"
           @keydown.down="traverseHistory('down')"
+          @keydown.tab="tabComplete()"
         >
       </label>
     </form>
@@ -22,11 +24,12 @@
 <script>
 import has from 'lodash/has'
 import get from 'lodash/get'
-import { InfiniteAutocomplete } from 'infinite-autocomplete'
+import first from 'lodash/first'
+
+import { tabComplete } from 'tab-completion'
 
 export default {
   name: 'GameInput',
-
   directives: {
     focus: {
       inserted (el) {
@@ -42,13 +45,9 @@ export default {
       }
     })
 
-    this.$bus.$on('commandsList:update', (commands) => {
+    this.$bus.$on('commands:update', (commands) => {
       this.commandsList = commands
     })
-  },
-
-  mounted () {
-    this.initAutocomplete()
   },
 
   data () {
@@ -58,21 +57,13 @@ export default {
       historyIndex: 0,
       autocomplete: null,
       history: [],
-      options: ['commands']
+      commandsList: ['commands']
     }
   },
 
   computed: {
     disabled () {
       return !this.$socket.isReady()
-    },
-
-    currentOptions () {
-      return this.options.map((text) => {
-        console.log({text})
-        text = text || ''
-        return {text, value: text.toLowerCase()}
-      })
     },
 
     type () {
@@ -105,11 +96,13 @@ export default {
       this.clear()
     },
 
-    initAutocomplete () {
-      this.autocomplete = new InfiniteAutocomplete(this.$refs.input, {
-        data: [{text: 'command', value: 'command'}]
-      })
-      return this.autocomplete
+    tabComplete () {
+      const possible = tabComplete(this.commandsList, this.userInput)
+      const found = first(possible)
+      if (found) {
+        this.userInput = found
+      }
+      return found
     },
 
     traverseHistory (direction) {
