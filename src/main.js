@@ -9,7 +9,7 @@ import EventBus, {bus} from './plugins/bus'
 import Ansi from './plugins/ansi'
 import MyelinAudio from './plugins/audio'
 
-const hostname = 'myelin.space'
+const hostname = process.env.NODE_ENV !== 'production' ? 'localhost' : 'myelin.space'
 const port = 4001
 
 Vue.config.productionTip = false

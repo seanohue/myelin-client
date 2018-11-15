@@ -7,6 +7,7 @@
           ref="input"
           v-model.trim="userInput"
           :data-source="commandsList"
+          :type="type"
           name="game-input"
           autocomplete="nope"
           class="game-input-field"
