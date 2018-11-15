@@ -6,10 +6,16 @@
     :size="size"
     :customhandles="['tl', 'tr']"
   >
-    <PanelTabs class="character-panel-container" @tab="switchTab($event)" :tabs="tabs" :activePanel="activePanel">
+    <PanelTabs
+      class="character-panel-container"
+      @tab="switchTab($event)"
+      :tabs="tabs"
+      :active-panel="activePanel">
       <keep-alive>
-        <component :is="activePanel" :stats="stats" :effects="effects">
-        </component>
+        <component
+          :is="activePanel"
+          :stats="stats"
+          :effects="effects"/>
       </keep-alive>
     </PanelTabs>
   </MyelinPanel>

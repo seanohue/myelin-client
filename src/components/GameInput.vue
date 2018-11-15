@@ -2,7 +2,8 @@
   <div class="game-input">
     <form @submit.prevent="enter">
       <label for="game-input">
-        <input v-focus
+        <input
+          v-focus
           name="game-input"
           autocomplete="nope"
           class="game-input-field"
@@ -11,7 +12,7 @@
           @keydown.enter="enter"
           @keydown.up="traverseHistory('up')"
           @keydown.down="traverseHistory('down')"
-        />
+        >
       </label>
     </form>
   </div>

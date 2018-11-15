@@ -1,11 +1,11 @@
 <template>
-    <div class="stats-container">
-      <StatBar v-for="(stat, i) in sortedStats"
-        :key="i"
-        :stat="stat"
-        :name="stat.name">
-      </StatBar>
-    </div>
+  <div class="stats-container">
+    <StatBar
+      v-for="(stat, i) in sortedStats"
+      :key="i"
+      :stat="stat"
+      :name="stat.name"/>
+  </div>
 </template>
 
 <script>
@@ -16,7 +16,12 @@ import assign from 'lodash/assign'
 import MyelinPanel from '@/components/MyelinPanel'
 
 export default {
-  props: ['stats'],
+  props: {
+    stats: {
+      type: Object,
+      required: true
+    }
+  },
   components: {
     MyelinPanel,
     StatBar: () => import('@/components/StatBar')

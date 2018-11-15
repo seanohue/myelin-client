@@ -13,7 +13,7 @@
           name="mute"
           :value="settings.audio.muted"
           v-model="settings.audio.muted"
-          @change="updateAudioSettings()" />Mute Audio<br>
+          @change="updateAudioSettings()" >Mute Audio<br>
       </form>
     </div>
   </MyelinPanel>
