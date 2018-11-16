@@ -39,7 +39,7 @@ export default {
             case 'attributes':
               return this.$bus.$emit('stats:change', message.data)
             case 'effects':
-              return this.$bus.$emit('effects:change', message.audioCue, message.options)
+              return this.$bus.$emit('effects:change', message.data)
           }
           return this.$bus.$emit('data:change', message.data)
         default:

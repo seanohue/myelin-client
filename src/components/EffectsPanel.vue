@@ -21,13 +21,16 @@ export default {
     effects: {
       type: Object,
       required: true
+    },
+    lastEffect: {
+      type: String,
+      required: true
     }
   },
   data () {
     return {
       size: {w: 325, h: 325, minh: 200, minw: 230},
-      position: {x: 620, y: 340},
-      lastEffect: ''
+      position: {x: 620, y: 340}
     }
   },
 

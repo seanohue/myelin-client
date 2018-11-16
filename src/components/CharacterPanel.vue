@@ -15,7 +15,8 @@
         <component
           :is="activePanel"
           :stats="stats"
-          :effects="effects"/>
+          :effects="effects"
+          :last-effect="lastEffect"/>
       </keep-alive>
     </PanelTabs>
   </MyelinPanel>
