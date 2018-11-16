@@ -71,7 +71,7 @@ export default {
       }
     })
 
-    this.$bus.$on('commands:update', (commands) => {
+    this.$bus.$on('commands:change', (commands) => {
       this.commandsList = map(commands, 'name')
     })
   },
@@ -103,9 +103,8 @@ export default {
 
       evt.preventDefault()
 
-      const possible = tabComplete(this.commandsList, this.userInput)
+      const possible = tabComplete(this.commandsList.concat(this.history), this.userInput, {minLength: 2})
       const found = first([].concat(possible))
-      console.log({evt, possible, found, input: this.userInput})
       if (found) {
         this.userInput = found
       }

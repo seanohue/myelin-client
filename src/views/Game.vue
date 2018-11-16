@@ -40,6 +40,8 @@ export default {
               return this.$bus.$emit('stats:change', message.data)
             case 'effects':
               return this.$bus.$emit('effects:change', message.data)
+            case 'commands':
+              return this.$bus.$emit('commands:change', message.data)
           }
           return this.$bus.$emit('data:change', message.data)
         default:

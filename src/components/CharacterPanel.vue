@@ -71,7 +71,6 @@ export default {
 
     this.$bus.$on('effects:change', (data) => {
       if (!data) return
-      console.log('new effects', data)
       this.effects = data
       this.lastEffect = this.effects[this.effects.length - 1].name
     })
