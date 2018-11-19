@@ -8,24 +8,24 @@
 @green-background: #00410056;
 
 .panel-content-container() {
-white-space: pre-wrap;
-background-color: @term-background;
-color: @term-foreground;
+  white-space: pre-wrap;
+  background-color: @term-background;
+  color: @term-foreground;
 
-padding: 8px;
-overflow-y: auto;
+  padding: 8px;
+  overflow-y: auto;
 
-border-style: groove;
+  border-style: groove;
 
-display: flex;
-flex: 1;
-flex-direction: column;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 
-font-family: "Roboto Mono", monospace;
-font-size: 14px;
-text-align: left;
+  font-family: "Roboto Mono", monospace;
+  font-size: 14px;
+  text-align: left;
 
-.subtle-inner-shadow(@term-foreground)
+  .subtle-inner-shadow(@term-foreground)
 }
 
 .subtle-inner-shadow(@color, @size: 3px) {
@@ -35,12 +35,12 @@ text-align: left;
 }
 
 .font-face(@font-family, @filepath, @font-weight, @font-style){
-    @font-face {
-        font-family: @font-family;
-        src: url('assets/@{filepath}.TTF')  format('truetype');
-        font-weight: @font-weight;
-        font-style: @font-style;
-    }
+  @font-face {
+    font-family: @font-family;
+    src: url('assets/@{filepath}.TTF')  format('truetype');
+    font-weight: @font-weight;
+    font-style: @font-style;
+  }
 }
 
 .font-face('BigBlue Terminal', 'BigBlue_TerminalPlus', normal, normal);

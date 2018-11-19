@@ -6,7 +6,7 @@
 
 <style lang="less">
 body {
-    background-color: gray;
+  background-color: gray;
 }
 #app {
   -webkit-font-smoothing: antialiased;
@@ -25,8 +25,8 @@ body {
 }
 
 .main {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vw;
   background-color: gray;
   display: flex;
 }

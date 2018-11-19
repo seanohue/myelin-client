@@ -2,6 +2,7 @@
   <MyelinPanel
     :title="title"
     :size="termsize"
+    :position="termposition"
     :customhandles="['ml', 'mr']"
     :minimizable="false"
   >
@@ -43,10 +44,14 @@ export default {
       messages: [],
       title: `VESSEL ACCESS TERMINAL v${pkg.version || 'X.X.X'}`,
       termsize: {
-        w: 600,
-        h: 800,
+        w: 620,
+        h: 700,
         minh: 200,
         minw: 350
+      },
+      termposition: {
+        x: 0,
+        y: 0
       }
     }
   },
