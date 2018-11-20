@@ -17,7 +17,11 @@ export default [
     name: 'cryochamber',
     rate: 0.75
   },
-
+  {
+    type: 'music',
+    name: 'labyrinth',
+    rate: 0.75
+  },
   {
     type: 'sfx',
     name: 'minimizepanel',

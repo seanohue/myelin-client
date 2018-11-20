@@ -3,7 +3,7 @@
     :title="title"
     :size="termsize"
     :position="termposition"
-    :customhandles="['ml', 'mr']"
+    :customhandles="['ml', 'mr', 'tm', 'bm']"
     :minimizable="false"
   >
     <div class="terminal-container">
@@ -45,7 +45,7 @@ export default {
       title: `VESSEL ACCESS TERMINAL v${pkg.version || 'X.X.X'}`,
       termsize: {
         w: 620,
-        h: 700,
+        h: Math.min(620, Math.max(200, window.innerHeight - 100)),
         minh: 200,
         minw: 350
       },
@@ -91,14 +91,17 @@ export default {
 
     outputMessage (message) {
       this.messages = this.messages.concat(message)
-      this.scrollDown()
+      this.scrollDown(this.messages)
       return this.messages
     },
 
-    scrollDown () {
+    scrollDown (messages, doNotRecurse) {
       this.$nextTick(() => {
         if (!this.$refs.messages) return
         this.$refs.messages.$el.scrollTop = this.$refs.messages.$el.scrollHeight
+        if (messages !== this.messages && !doNotRecurse) {
+          return this.scrollDown(this.messages, true)
+        }
       })
     }
   }
