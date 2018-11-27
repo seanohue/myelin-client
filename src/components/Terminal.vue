@@ -9,9 +9,9 @@
     <div class="terminal-container">
       <VirtualList
         ref="messages"
-        :size="30"
-        :remain="20"
-        :bench="20"
+        :size="25"
+        :remain="25"
+        :bench="100"
         :start="0"
         class="terminal-messages">
         <span
@@ -73,15 +73,11 @@ export default {
     })
 
     this.$bus.$on('ui:output', (msg) => this.outputMessage(msg))
+    this.$bus.$on('ui:scroll', () => this.scrollDown())
 
     this.$socket.init()
     this.outputMessage('Linking to vessel...\n')
   },
-
-  // beforeDestroy () {
-  //   const NORMAL = 1000
-  //   this.$socket.close(NORMAL, 'Player navigated from page.')
-  // },
 
   methods: {
     ansi (message) {
@@ -95,13 +91,12 @@ export default {
       return this.messages
     },
 
-    scrollDown (messages, doNotRecurse) {
+    scrollDown (messages) {
       this.$nextTick(() => {
         if (!this.$refs.messages) return
-        this.$refs.messages.$el.scrollTop = this.$refs.messages.$el.scrollHeight
-        if (messages !== this.messages && !doNotRecurse) {
-          return this.scrollDown(this.messages, true)
-        }
+
+        const {scrollHeight} = this.$refs.messages.$el
+        this.$refs.messages.$el.scrollTop = scrollHeight
       })
     }
   }

@@ -96,6 +96,7 @@ export default {
         }
       }
       this.clear()
+      this.$bus.$emit('ui:scroll')
     },
 
     tabComplete (evt) {
