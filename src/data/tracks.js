@@ -53,5 +53,17 @@ export default [
     name: 'osstart',
     volume: 0.5,
     rate: 0.5
+  },
+  {
+    type: 'sfx',
+    name: 'bash',
+    volume: 1,
+    rate: 1
+  },
+  {
+    type: 'sfx',
+    name: 'bashed',
+    volume: 1,
+    rate: 1
   }
 ]
