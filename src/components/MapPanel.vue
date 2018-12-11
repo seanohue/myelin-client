@@ -6,17 +6,19 @@
     :size="mapSize"
     :customhandles="['tl', 'tr']"
   >
-    <Map
+    <MyelinMap
       :map="mapData"
+      class="map-panel-container"
     />
   </MyelinPanel>
 </template>
 
 <script>
 import MyelinPanel from '@/components/MyelinPanel'
+import MyelinMap from '@/components/MyelinMap'
 
 export default {
-  components: {MyelinPanel},
+  components: {MyelinPanel, MyelinMap},
   data () {
     return {
       size: 3,
@@ -62,7 +64,7 @@ export default {
 <style lang="less" scoped>
 @import '../app.less';
 
-.character-panel-container {
+.map-panel-container {
   .panel-content-container()
 }
 </style>
