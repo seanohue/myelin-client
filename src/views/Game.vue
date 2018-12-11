@@ -3,6 +3,7 @@
     <Terminal />
     <CharacterPanel />
     <SettingsPanel />
+    <MapPanel />
   </div>
 </template>
 
@@ -13,7 +14,8 @@ export default {
   components: {
     Terminal: () => import('@/components/Terminal'),
     CharacterPanel: () => import('@/components/CharacterPanel'),
-    SettingsPanel: () => import('@/components/SettingsPanel')
+    SettingsPanel: () => import('@/components/SettingsPanel'),
+    MapPanel: () => import('@/components/MapPanel')
   },
   created () {
     this.$bus.$on('message', m => {
@@ -42,6 +44,8 @@ export default {
               return this.$bus.$emit('effects:change', message.data)
             case 'commands':
               return this.$bus.$emit('commands:change', message.data)
+            case 'map':
+              return this.$bus.$emit('map:change', message.data)
           }
           return this.$bus.$emit('data:change', message.data)
         default:
