@@ -39,7 +39,6 @@ export default {
         case 'data':
           switch (message.group) {
             case 'attributes':
-              console.log('Got attributes:', message)
               return this.$bus.$emit('stats:change', message.data)
             case 'effects':
               return this.$bus.$emit('effects:change', message.data)
