@@ -8,6 +8,7 @@
   >
     <MyelinMap
       :map="mapData"
+      :exits="exits"
       class="map-panel-container"
     />
   </MyelinPanel>
@@ -21,8 +22,9 @@ export default {
   components: {MyelinPanel, MyelinMap},
   data () {
     return {
-      size: 3,
+      size: 8,
       mapData: null,
+      exits: [],
       areaName: '',
       position: {
         x: 1000,
@@ -35,12 +37,12 @@ export default {
       return Boolean(this.mapData)
     },
     mapSize () {
-      const size = (buffer = 10) => (this.size * 36) + Math.min(buffer, this.title.length * 4)
+      const size = (32 * 8) + 120
       return {
-        minh: size(),
-        minw: size(),
-        h: size(20),
-        w: size(20)
+        minh: size,
+        minw: size,
+        h: size,
+        w: size
       }
     },
     title () {
@@ -52,8 +54,10 @@ export default {
   },
   methods: {
     updateMap (data) {
+      console.log('Updating map!')
       this.mapData = data.mapData
       this.areaName = data.areaName
+      this.exits = data.exits
       this.size = data.size
       console.log({map: data})
     }

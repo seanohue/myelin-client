@@ -1,221 +1,226 @@
-import partialRight from 'lodash/partialRight'
-import map from 'lodash/map'
-import filter from 'lodash/filter'
-import find from 'lodash/find'
-import bind from 'lodash/bind'
-import get from 'lodash/get'
-import capitalize from 'lodash/capitalize'
+// import partialRight from 'lodash/partialRight'
+// import map from 'lodash/map'
+// import filter from 'lodash/filter'
+// import find from 'lodash/find'
+// import bind from 'lodash/bind'
+// import get from 'lodash/get'
+// import capitalize from 'lodash/capitalize'
 
 import tracks from '@/data/tracks'
 import {bus} from './bus'
 
-const AudioPlugin = {
-  install (Vue) {
-    Vue.prototype.$audio = new MyelinAudio(bus)
-  }
-}
+import {AudioPlugin} from 'vue-howler-bus'
+const plugin = AudioPlugin(tracks, bus)
 
-class MyelinAudio {
-  constructor ($bus) {
-    this.$bus = $bus
-  }
+export default plugin
 
-  init () {
-    return import('howler')
-      .then(bind(this.initHowler, this))
-      .then(bind(this.setupTracks, this))
-      .then(bind(this.setupPlayers, this))
-      .then(() => {
-        this.initSettings()
-        this.initEvents()
-        this.ambient.play()
-        this.music.play()
-        this.sfx.play()
-        return this
-      })
-  }
+// const AudioPlugin = {
+//   install (Vue) {
+//     Vue.prototype.$audio = new MyelinAudio(bus)
+//   }
+// }
 
-  initHowler ({Howl, Howler}) {
-    this.Howl = Howl
-    this.Howler = Howler
-    return this
-  }
+// class MyelinAudio {
+//   constructor ($bus) {
+//     this.$bus = $bus
+//   }
 
-  setupTracks () {
-    const processTracks = partialRight(map, this.processTrack)
-    this.tracks = processTracks(tracks)
-    return this.tracks
-  }
+//   init () {
+//     return import('howler')
+//       .then(bind(this.initHowler, this))
+//       .then(bind(this.setupTracks, this))
+//       .then(bind(this.setupPlayers, this))
+//       .then(() => {
+//         this.initSettings()
+//         this.initEvents()
+//         this.ambient.play()
+//         this.music.play()
+//         this.sfx.play()
+//         return this
+//       })
+//   }
 
-  processTrack (track) {
-    track.fetch = () => import(`@/assets/${track.name}.ogg`)
-    return track
-  }
+//   initHowler ({Howl, Howler}) {
+//     this.Howl = Howl
+//     this.Howler = Howler
+//     return this
+//   }
 
-  setupPlayers () {
-    return Promise.all([
-      this.initAmbient(),
-      this.initMusic(),
-      this.initSfx()
-    ])
-  }
+//   setupTracks () {
+//     const processTracks = partialRight(map, this.processTrack)
+//     this.tracks = processTracks(tracks)
+//     return this.tracks
+//   }
 
-  initAmbient () {
-    const initial = this.findTrack('tubestatic')
-    return this.createPlayer('ambient', initial)
-      .then(howl => {
-        this.ambient = howl
-        return this
-      })
-  }
+//   processTrack (track) {
+//     track.fetch = () => import(`@/assets/${track.name}.ogg`)
+//     return track
+//   }
 
-  initMusic () {
-    const initial = this.findTrack('VESSELACCESS')
-    return this.createPlayer('music', initial)
-      .then(howl => {
-        this.music = howl
-        return this
-      })
-  }
+//   setupPlayers () {
+//     return Promise.all([
+//       this.initAmbient(),
+//       this.initMusic(),
+//       this.initSfx()
+//     ])
+//   }
 
-  initSfx () {
-    const initial = this.findTrack('osstart')
-    return this.createPlayer('sfx', initial)
-      .then(howl => {
-        this.sfx = howl
-        return this
-      })
-  }
+//   initAmbient () {
+//     const initial = this.findTrack('tubestatic')
+//     return this.createPlayer('ambient', initial)
+//       .then(howl => {
+//         this.ambient = howl
+//         return this
+//       })
+//   }
 
-  findTrack (trackname) {
-    return find(this.tracks, {name: trackname})
-  }
+//   initMusic () {
+//     const initial = this.findTrack('VESSELACCESS')
+//     return this.createPlayer('music', initial)
+//       .then(howl => {
+//         this.music = howl
+//         return this
+//       })
+//   }
 
-  createPlayer (player, track) {
-    const initTrack = track.src
-      ? bind(Promise.resolve, Promise, track.src)
-      : () => track.fetch().then(imported => imported.default)
+//   initSfx () {
+//     const initial = this.findTrack('osstart')
+//     return this.createPlayer('sfx', initial)
+//       .then(howl => {
+//         this.sfx = howl
+//         return this
+//       })
+//   }
 
-    const currentlyMuted = get(this, 'settings.muted', false)
+//   findTrack (trackname) {
+//     return find(this.tracks, {name: trackname})
+//   }
 
-    return initTrack()
-      .then(src => {
-        return new this.Howl({
-          src: [src],
-          loop: player !== 'sfx',
-          preload: true,
-          mute: currentlyMuted,
-          rate: track.rate || 1,
-          volume: track.volume || this.getVolume(player),
-          onloaderror (id, err) {
-            return this.logError(player, `LoadError: ${id} -- ${err}`)
-          },
-          onplayerror (id, err) {
-            return this.logError(player, `PlayError: ${id} -- ${err}`)
-          }
-        })
-      })
-  }
+//   createPlayer (player, track) {
+//     const initTrack = track.src
+//       ? bind(Promise.resolve, Promise, track.src)
+//       : () => track.fetch().then(imported => imported.default)
 
-  initSettings () {
-    this.settings = {
-      muted: false,
-      musicVolume: 1,
-      sfxVolume: 1,
-      ambientVolume: 1
-    }
+//     const currentlyMuted = get(this, 'settings.muted', false)
 
-    this.emitSettings()
-  }
+//     return initTrack()
+//       .then(src => {
+//         return new this.Howl({
+//           src: [src],
+//           loop: player !== 'sfx',
+//           preload: true,
+//           mute: currentlyMuted,
+//           rate: track.rate || 1,
+//           volume: track.volume || this.getVolume(player),
+//           onloaderror (id, err) {
+//             return this.logError(player, `LoadError: ${id} -- ${err}`)
+//           },
+//           onplayerror (id, err) {
+//             return this.logError(player, `PlayError: ${id} -- ${err}`)
+//           }
+//         })
+//       })
+//   }
 
-  handleSettingsChange (settings) {
-    if (!settings) return
+//   initSettings () {
+//     this.settings = {
+//       muted: false,
+//       musicVolume: 1,
+//       sfxVolume: 1,
+//       ambientVolume: 1
+//     }
 
-    Object.assign(this.settings, settings)
+//     this.emitSettings()
+//   }
 
-    if (typeof settings.muted === 'boolean') {
-      this.eachPlayer(player => { player.mute = settings.muted })
+//   handleSettingsChange (settings) {
+//     if (!settings) return
 
-      if (settings.muted) {
-        this.stopAll()
-      } else {
-        this.eachPlayer(player => { player.mute = false })
-        this.playAll()
-      }
-    }
-  }
+//     Object.assign(this.settings, settings)
 
-  initEvents () {
-    this.$bus.$on('settings:init', () => this.emitSettings())
-    this.$bus.$on('audio:change', ({settings, cue, options}) => {
-      console.log('Audio Change:', {cue, options, settings})
-      if (settings) return this.handleSettingsChange(settings)
-      return this.handleAudioChange(cue, options)
-    })
-    this.$bus.$on('audio:play', (player, trackname) => this.playTrack(player, trackname))
-  }
+//     if (typeof settings.muted === 'boolean') {
+//       this.eachPlayer(player => { player.mute = settings.muted })
 
-  handleAudioChange (cue, options) {
-    if (!cue) return this.logError('SYSTEM', 'Audio change sent with no cue!')
+//       if (settings.muted) {
+//         this.stopAll()
+//       } else {
+//         this.eachPlayer(player => { player.mute = false })
+//         this.playAll()
+//       }
+//     }
+//   }
 
-    if (options.stop) {
-      if (cue === 'all') return this.stopAll()
-      return this.eachPlayer((player, type) => type === cue && player.stop())
-    }
+//   initEvents () {
+//     this.$bus.$on('settings:init', () => this.emitSettings())
+//     this.$bus.$on('audio:change', ({settings, cue, options}) => {
+//       console.log('Audio Change:', {cue, options, settings})
+//       if (settings) return this.handleSettingsChange(settings)
+//       return this.handleAudioChange(cue, options)
+//     }
+//     this.$bus.$on('audio:play', (player, trackname) => this.playTrack(player, trackname))
+//   }
 
-    const track = this.findTrack(cue)
-    if (!track) return this.logError('SYSTEM', `Track not found for cue: ${cue}.`)
-    const {type, name} = track
-    return this.playTrack(type, name)
-  }
+//   handleAudioChange (cue, options) {
+//     if (!cue) return this.logError('SYSTEM', 'Audio change sent with no cue!')
 
-  stopAll () {
-    this.eachPlayer(player => player.stop())
-  }
+//     if (options.stop) {
+//       if (cue === 'all') return this.stopAll()
+//       return this.eachPlayer((player, type) => type === cue && player.stop())
+//     }
 
-  playAll () {
-    this.eachPlayer((player, type) => type !== 'sfx' && player.play())
-  }
+//     const track = this.findTrack(cue)
+//     if (!track) return this.logError('SYSTEM', `Track not found for cue: ${cue}.`)
+//     const {type, name} = track
+//     return this.playTrack(type, name)
+//   }
 
-  eachPlayer (cb) {
-    const existingPlayers = filter(['ambient', 'music', 'sfx'], (player) => this[player])
-    return map(existingPlayers, (player) => cb(this[player], player))
-  }
+//   stopAll () {
+//     this.eachPlayer(player => player.stop())
+//   }
 
-  emitSettings () {
-    this.$bus.$emit('audio:init', {settings: this.settings})
-  }
+//   playAll () {
+//     this.eachPlayer((player, type) => type !== 'sfx' && player.play())
+//   }
 
-  playTrack (player, trackname) {
-    const track = this.findTrack(trackname)
-    if (!track) {
-      return this.logError(player, `TrackNotFoundError: ${trackname}}`)
-    }
-    if (!this[player]) {
-      return this.logError(player, `PlayerNotFoundError: ${player} uninitialized`)
-    }
+//   eachPlayer (cb) {
+//     const existingPlayers = filter(['ambient', 'music', 'sfx'], (player) => this[player])
+//     return map(existingPlayers, (player) => cb(this[player], player))
+//   }
 
-    this[player].stop()
+//   emitSettings () {
+//     this.$bus.$emit('audio:init', {settings: this.settings})
+//   }
 
-    return this.createPlayer(player, track)
-      .then((howl) => {
-        this[player] = howl
-        this[player].play()
-        return this
-      })
-  }
+//   playTrack (player, trackname) {
+//     const track = this.findTrack(trackname)
+//     if (!track) {
+//       return this.logError(player, `TrackNotFoundError: ${trackname}}`)
+//     }
+//     if (!this[player]) {
+//       return this.logError(player, `PlayerNotFoundError: ${player} uninitialized`)
+//     }
 
-  getVolume (player) {
-    return {
-      music: 0.75,
-      ambient: 0.5,
-      sfx: 1
-    }[player] || 1
-  }
+//     this[player].stop()
 
-  logError (type, message) {
-    return console.warn(`[${capitalize(type)} Audio] ${message}`)
-  }
-}
+//     return this.createPlayer(player, track)
+//       .then((howl) => {
+//         this[player] = howl
+//         this[player].play()
+//         return this
+//       })
+//   }
 
-export default AudioPlugin
+//   getVolume (player) {
+//     return {
+//       music: 0.75,
+//       ambient: 0.5,
+//       sfx: 1
+//     }[player] || 1
+//   }
+
+//   logError (type, message) {
+//     return console.warn(`[${capitalize(type)} Audio] ${message}`)
+//   }
+// }
+
+// export default AudioPlugin
