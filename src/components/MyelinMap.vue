@@ -14,7 +14,8 @@
           class="map-tile" />
       </div>
     </div>
-    <div class="compass">{{ compass }}
+    <div class="compass">
+      {{ compass }}
     </div>
   </div>
 </template>
@@ -24,7 +25,9 @@
 // Import all images from a directory
 function importAll (r) {
   let images = {}
-  r.keys().map((item) => { images[item.replace('./', '')] = r(item) })
+  r
+    .keys()
+    .map((item) => { images[item.replace('./', '')] = r(item) })
   return images
 }
 
@@ -148,19 +151,17 @@ export default {
 
 <style scoped>
   .map-viewer-container {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-content: center;
-
-    width: 256px;
-    height: 256px;
-
+    margin: 0;
   }
 
   .map-container {
+    display: flex;
+    flex-wrap: wrap;
     width: 100%;
     margin: auto;
+    justify-content: center;
   }
 
   .map-row {
