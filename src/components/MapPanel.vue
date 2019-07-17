@@ -69,6 +69,6 @@ export default {
 @import '../app.less';
 
 .map-panel-container {
-  .panel-content-container()
+  .panel-content-container();
 }
 </style>

@@ -39,6 +39,7 @@ export default {
 
   data () {
     return {
+      level: 1,
       title: 'VËSŚEL MONIT0R',
       size: {w: 325, h: 600, minh: 300, minw: 300},
       position: {x: 620, y: 100},
@@ -63,9 +64,11 @@ export default {
   },
 
   created () {
-    this.$bus.$on('stats:change', ({attributes}) => {
-      if (attributes) {
+    this.$bus.$on('stats:change', (data) => {
+      if (data) {
+        const {attributes, level} = data
         this.stats = attributes
+        this.level = level
       }
     })
 

@@ -14,7 +14,8 @@
           class="map-tile" />
       </div>
     </div>
-    <div class="compass">{{ compass }}
+    <div class="compass">
+      {{ compass }}
     </div>
   </div>
 </template>
@@ -24,7 +25,9 @@
 // Import all images from a directory
 function importAll (r) {
   let images = {}
-  r.keys().map((item) => { images[item.replace('./', '')] = r(item) })
+  r
+    .keys()
+    .map((item) => { images[item.replace('./', '')] = r(item) })
   return images
 }
 
@@ -40,7 +43,7 @@ export default {
     },
     size: {
       type: Number,
-      default: 8
+      default: 9
     },
     exits: {
       type: Array,
@@ -58,8 +61,8 @@ export default {
       if (!this.map) return
 
       // TODO: Diff the map for performance, eventually.
-      const map = this.createEmpty2DArray(8)
-      console.log({map, mapData: this.map})
+      const map = this.createEmpty2DArray(this.size)
+
       for (const point of this.map) {
         const {x, y} = point
         if (point.glyph === '.') point.glyph = 'default'
@@ -68,7 +71,7 @@ export default {
 
       map.reverse()
 
-      return map
+      return this.centerOnPlayer(map)
     },
 
     compass () {
@@ -92,6 +95,10 @@ export default {
   },
 
   methods: {
+    centerOnPlayer (map) {
+      return map
+    },
+
     hasPlayer (x, y) {
       const row = this.fullMap[y] || []
       const tile = row[x] || {}
@@ -111,6 +118,9 @@ export default {
       return {
         glyph: 'empty'
       }
+    },
+
+    findPlayerTile (map) {
     },
 
     getTileStyle (tile) {
@@ -148,19 +158,17 @@ export default {
 
 <style scoped>
   .map-viewer-container {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-content: center;
-
-    width: 256px;
-    height: 256px;
-
+    margin: 0;
   }
 
   .map-container {
+    display: flex;
+    flex-wrap: wrap;
     width: 100%;
     margin: auto;
+    justify-content: center;
   }
 
   .map-row {
