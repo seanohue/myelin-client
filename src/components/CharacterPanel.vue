@@ -63,9 +63,9 @@ export default {
   },
 
   created () {
-    this.$bus.$on('stats:change', (data) => {
-      if (data) {
-        this.stats = data
+    this.$bus.$on('stats:change', ({attributes}) => {
+      if (attributes) {
+        this.stats = attributes
       }
     })
 
