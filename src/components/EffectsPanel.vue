@@ -1,10 +1,15 @@
 <template>
   <div class="effects-container">
-    <EffectBlock
-      v-for="(effect, key) in effects"
-      :key="key"
-      :effect="effect"
-      :is-last="effect.name === lastEffect"/>
+    <div v-if="hasEffects">
+      <EffectBlock
+        v-for="(effect, key) in effects"
+        :key="key"
+        :effect="effect"
+        :is-last="effect.name === lastEffect"/>
+    </div>
+    <div v-else>
+      {{ none }}
+    </div>
   </div>
 </template>
 
@@ -30,7 +35,8 @@ export default {
   data () {
     return {
       size: {w: 325, h: 325, minh: 200, minw: 230},
-      position: {x: 620, y: 340}
+      position: {x: 620, y: 340},
+      none: 'NŒ EFFECTS'
     }
   },
 
