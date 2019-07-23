@@ -19,7 +19,6 @@
     "lodash": "^4.17.11",
     "lodash-es": "^4.17.11",
     "tab-completion": "^1.0.1",
-    "uninstall": "0.0.0",
     "vue": "^2.5.16",
     "vue-draggable-resizable": "^1.7.2",
     "vue-router": "^3.0.1",
