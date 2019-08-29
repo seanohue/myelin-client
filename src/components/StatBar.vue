@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import capitalize from 'lodash/capitalize'
+import startCase from 'lodash/startCase'
 import isNil from 'lodash/isNil'
 
 export default {
@@ -33,7 +33,7 @@ export default {
 
   computed: {
     capName () {
-      return capitalize(this.name)
+      return startCase(this.name)
     },
 
     isPool () {
