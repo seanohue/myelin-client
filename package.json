@@ -11,7 +11,7 @@
     "build:report": "vue-cli-service build --report"
   },
   "dependencies": {
-    "ansi_up": "^3.0.0",
+    "ansi_up": "^5.0.0",
     "awesomplete": "^1.1.3",
     "howler": "^2.0.15",
     "humanize-duration-es6": "^1.0.1",
